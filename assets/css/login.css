@@ -4,9 +4,6 @@ body {
   font-family: sans-serif;
   position: relative;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../img/house-rent.jpg") no-repeat center center/cover;
-
   width: 100%;
 }
 .login-box {
@@ -24,7 +21,6 @@ h1 {
 }
 img {
   width: 30px;
-  border-radius: 100px;
   float: right;
 }
 .textbox {
@@ -34,16 +30,17 @@ img {
   padding: 8px 0;
   margin: 8px 0;
   border-bottom: 1px solid rgb(250, 186, 68);
+  border-radius: 4%;
 }
 .textbox input {
   border: none;
   outline: none;
   background: none;
   font-size: 17px;
-  width: 80px;
-  float: left;
   margin: 0 9px;
+  color: #fff;
 }
+
 input::placeholder {
   color: rgb(255, 241, 241);
 }
@@ -57,6 +54,7 @@ input::placeholder {
   padding: 5px;
   font-size: 17px;
   margin: 12px 0;
+  border-radius: 10px;
 }
 span {
   font-weight: bold;
@@ -65,7 +63,7 @@ span {
 }
 a {
   font-size: small;
-  color: rgb(0, 4, 255);
+  color: white;
 }
 .register a {
   text-decoration: none;

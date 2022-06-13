@@ -456,7 +456,7 @@ header .icons #menu-bars {
 }
 
 .contact .row form {
-  flex: 1 1 50rem;
+  flex: 1 1 50%;
   padding: 0.5rem 1rem;
 }
 
@@ -492,7 +492,7 @@ header .icons #menu-bars {
 
 .contact .row form textarea:focus,
 .contact .row form .inputBox input:focus {
-  background-color: var(--light-red);
+  background-color: #fff;
 }
 
 .footer .footer-container {

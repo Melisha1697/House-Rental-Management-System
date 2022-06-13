@@ -41,20 +41,12 @@ if(isset($_SESSION["username"])){
                 <h3>Houses</h3>
                 </a>
                 <a href="#">
-                <span class="material-symbols-sharp">group</span>
-                <h3>Tenants</h3>
-                </a>
-                <a href="#">
                 <span class="material-symbols-sharp">payments</span>
                 <h3>Payments</h3>
                 </a>
                 <a href="#">
                 <span class="material-symbols-sharp">ballot</span>
                 <h3>Reports</h3>
-                </a>
-                <a href="#">
-                <span class="material-symbols-sharp">account_circle_full</span>
-                <h3>Users</h3>
                 </a>
                 <a href="logout.php">
                 <span class="material-symbols-sharp">logout</span>

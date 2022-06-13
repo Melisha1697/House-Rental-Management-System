@@ -51,15 +51,7 @@ header("location:index.php?page=home");
 		margin: auto;
 		z-index: 1
 	}
-	.logo {
-    margin: auto;
-    font-size: 8rem;
-    background: white;
-    padding: .5em 0.7em;
-    border-radius: 50% 50%;
-    color: #000000b3;
-    z-index: 10;
-}
+
 div#login-right::before {
     content: "";
     position: absolute;

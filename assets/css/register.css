@@ -1,0 +1,95 @@
+:root {
+  --color-primary: rgb(255, 162, 0);
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  position: relative;
+  height: 100vh;
+  background: url("../img/register.png") no-repeat;
+  background-position: top 50% right 17%;
+  width: 100%;
+}
+.login-box {
+  width: 280px;
+  position: absolute;
+  top: 50%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  color: rgb(18, 17, 17);
+  border-radius: 4%;
+  width: 20%;
+  padding: 2%;
+}
+h1 {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+img {
+  width: 30px;
+  float: right;
+}
+.textbox {
+  width: 100%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+}
+.textbox input {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 17px;
+  margin: 0 9px;
+  color: rgb(18, 17, 17);
+}
+
+input::placeholder {
+  font-size: 15px;
+}
+
+select {
+  appearance: none;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  padding: 15px;
+  width: 290px;
+}
+.btn {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: rgb(18, 17, 17);
+  padding: 7px;
+  font-size: 17px;
+  margin: 12px;
+  border-radius: 10px;
+  border: 0;
+}
+span {
+  font-weight: bold;
+  font-size: small;
+  margin-left: 10%;
+}
+
+.textbox:hover {
+  border: 2px solid rgb(21, 21, 21);
+}
+.register a {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: small;
+  margin-left: 5px;
+}
+.register a:hover {
+  color: rgb(255, 162, 0);
+}
+.btn:hover {
+  background: rgb(245, 193, 103);
+  font-weight: bold;
+}
