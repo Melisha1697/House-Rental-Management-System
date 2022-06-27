@@ -1,18 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+:root {
+  --color-primary: rgb(255, 162, 0);
+  --orange: rgb(233, 184, 48);
+  --light-orange: rgb(40, 39, 38);
+}
+
+* {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   position: relative;
   height: 100vh;
+  background: url("../img/register.png") no-repeat;
+  background-position: top 50% right 17%;
   width: 100%;
 }
+
+header {
+  font-family: "Nunito", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 9%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo {
+  color: #ddff;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  color: rgb(233, 184, 48);
+}
+
+header .navbar a {
+  color: rgb(16, 16, 16);
+  font-size: 1.2rem;
+  padding: 0 1rem;
+}
+
+header .navbar a:hover {
+  color: var(--color-primary);
+}
+
 .login-box {
   width: 280px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 23%;
   transform: translate(-50%, -50%);
-  color: rgb(255, 248, 248);
+  color: rgb(18, 17, 17);
+  border-radius: 4%;
+  width: 20%;
+  padding: 2%;
 }
 h1 {
   text-align: center;
@@ -23,14 +76,24 @@ img {
   width: 30px;
   float: right;
 }
+
+input,
+select {
+  border: none;
+  outline: none;
+  background: none;
+}
 .textbox {
-  width: 100%;
+  width: 97.5%;
   overflow: hidden;
   font-size: 20px;
-  padding: 8px 0;
+  padding: 3px;
   margin: 8px 0;
-  border-bottom: 1px solid rgb(250, 186, 68);
-  border-radius: 4%;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 .textbox input {
   border: none;
@@ -38,40 +101,71 @@ img {
   background: none;
   font-size: 17px;
   margin: 0 9px;
-  color: #fff;
+  color: rgb(18, 17, 17);
+  padding: 10px;
+  width: 100%;
+}
+
+.textbox img {
+  margin-right: 10px;
 }
 
 input::placeholder {
-  color: rgb(255, 241, 241);
+  font-size: 15px;
 }
 
-.btn {
+select {
+  background-color: #fff;
+  appearance: none;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  padding: 15px;
   width: 100%;
-  background: none;
-  border: 2px solid rgb(250, 186, 68);
-  opacity: 0.8;
-  color: rgb(245, 238, 238);
-  padding: 5px;
-  font-size: 17px;
-  margin: 12px 0;
-  border-radius: 10px;
 }
+.login-btn {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: rgb(18, 17, 17);
+  padding: 10px;
+  font-size: 17px;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer !important;
+}
+
 span {
   font-weight: bold;
   font-size: small;
-  margin-right: 10px;
-}
-a {
-  font-size: small;
-  color: white;
-}
-.register a {
-  text-decoration: none;
-  color: rgb(250, 186, 68);
+  text-transform: capitalize;
 }
 
-.btn:hover {
-  background-color: rgb(250, 186, 68);
-  color: black;
+.login a {
+  text-decoration: none;
+  color: var(--color-primary);
   font-weight: bold;
+  font-size: small;
+  margin-left: 5px;
+}
+.login a:hover {
+  color: rgb(255, 162, 0);
+}
+.btn:hover {
+  background: rgb(245, 193, 103);
+  font-weight: bold;
+}
+
+/* media queries  */
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+  }
+
+  header {
+    padding: 1.5rem 1rem;
+  }
+
+  section {
+    padding: 1.5rem;
+  }
 }

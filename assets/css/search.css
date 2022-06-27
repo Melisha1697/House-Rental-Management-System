@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+
+:root {
+  --orange: rgb(233, 184, 48);
+  --light-orange: rgb(40, 39, 38);
+  --color-primary: rgb(255, 162, 0);
+}
+
+* {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+body {
+  background: #f7f7f744;
+}
+
+section {
+  padding: 2rem 9%;
+}
+
+#scrollUp {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 2rem;
+  width: 1rem;
+  background-color: red;
+}
+
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.8rem 3.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--orange);
+  background: rgb(79, 77, 75);
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background: rgb(250, 217, 85);
+  color: rgb(79, 77, 75);
+}
+.heading {
+  text-align: center;
+  color: #333;
+  font-size: 4rem;
+  padding-bottom: 3rem;
+}
+
+header {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 9%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo {
+  font-weight: bolder;
+  font-size: 2.5rem;
+  color: rgb(233, 184, 48);
+}
+
+header .navbar a {
+  color: rgb(12, 12, 12);
+  font-size: 2rem;
+  padding: 0 1.5rem;
+}
+
+header .navbar a:hover {
+  color: var(--color-primary);
+}
+
+header .icons #menu-bars,
+header .icons a {
+  height: 4.5rem;
+  line-height: 4.5rem;
+  width: 5rem;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  color: rgb(12, 12, 12);
+  text-align: center;
+}
+
+header .icons #menu-bars:hover,
+header .icons a:hover {
+  background-color: var(--orange);
+  color: var(--light-orange);
+}
+
+header .icons #menu-bars {
+  display: none;
+}
+.popup{
+  padding-top: 70px;
+  height: 200px;
+}
+
+.search {
+  width: 50%;
+  padding: 15px 20px;
+  margin-left: 320px;
+  background: rgb(233, 184, 48);
+  border-radius: 10px;
+}
+
+.search input {
+  font-size: 18px;
+  font-weight: bold;
+  display: inline-block;
+  background: rgb(233, 184, 48);
+  color: rgb(5, 5, 5);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  width: 95%;
+}
+.search button {
+  background-color: transparent;
+  cursor: pointer;
+}
+.search button img {
+  width: 25px;
+}
+::placeholder {
+  color: rgba(12, 12, 12, 0.793);
+}
+
+.footer .footer-container {
+  background: #fff;
+  border: 0.1rem solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.footer .footer-container .box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer .footer-container .box-container .box {
+  flex: 1 1 25rem;
+}
+
+.footer .footer-container .box-container .box h3 {
+  font-size: 2.5rem;
+  color: #333;
+  padding: 0.5rem 0;
+}
+
+.footer .footer-container .box-container .box a {
+  display: block;
+  font-size: 1.5rem;
+  color: #666;
+  padding: 0.5rem 0;
+}
+
+.footer .footer-container .box-container .box a:hover {
+  color: var(--red);
+  text-decoration: underline;
+}
+
+.footer .footer-container .credit {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  padding-top: 2.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+}
+
+.footer .footer-container .credit span {
+  color: var(--red);
+}
+
+.footer .footer-container {
+  margin-bottom: 8rem;
+}
+
+/* media queries  */
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+  }
+
+  header {
+    padding: 1.5rem 1rem;
+  }
+
+  section {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header .icons #menu-bars {
+    display: inline-block;
+  }
+
+  header .navbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: #f7f7f7;
+    border-top: 0.1rem solid #333;
+    border-bottom: 0.1rem solid #333;
+    transition: 0.2s linear;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+
+  header .navbar.active {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  header .navbar a {
+    display: block;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    background: #fff;
+    border: 0.1rem solid #333;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+
+  .contact .row form .inputBox input {
+    width: 100%;
+  }
+}

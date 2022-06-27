@@ -1,0 +1,37 @@
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-container .item {
+  width: 33%;
+  padding: 5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.item .material-symbols-sharp {
+  font-size: 3rem;
+  width: 70px;
+  height: 70px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: rgb(233, 184, 48);
+}
+
+.item h2 {
+  margin-top: 1rem;
+  font-size: 3rem;
+}
+
+.item h3 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}

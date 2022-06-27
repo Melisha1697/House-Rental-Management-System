@@ -1,0 +1,352 @@
+/*--------ROOT Vaiables------*/
+:root {
+  --color-primary: rgb(233, 184, 48);
+  --color-success: #41f1b6;
+  --color-warning: red;
+  --color-white: rgba(255, 255, 255, 0.659);
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dce1eb;
+  -color-dark: #363949;
+  --color-light: rgba(115, 115, 104, 0);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #363637fe;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-size: 0.88rem;
+  background-color: var(--color-background);
+  user-select: none;
+  overflow-x: hidden;
+}
+
+.container {
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  gap: 1.8rem;
+  grid-template-columns: 14rem auto;
+}
+a {
+  color: var(-color-dark);
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+aside {
+  height: 100vh;
+}
+aside .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+  padding-top: 10px;
+}
+aside h2 {
+  padding-top: 5px;
+}
+aside .logo {
+  display: flex;
+  gap: 0.8rem;
+}
+
+aside .logo img {
+  width: 2.7rem;
+  height: 2.7rem;
+  margin: 0px 0px 8px 8px;
+}
+aside .close {
+  display: none;
+}
+
+/*-----SIDEBAR-----*/
+aside .sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 86vh;
+  position: relative;
+  top: 3rem;
+}
+
+aside h3 {
+  font-weight: 500;
+}
+
+aside .sidebar a {
+  display: flex;
+  color: var(--color-info-dark);
+  margin-left: 2rem;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  height: 3.7rem;
+  transition: all 300ms ease;
+}
+
+aside .sidebar a span {
+  font-size: 1.6rem;
+  transition: all 300ms ease;
+}
+aside .sidebar a:last-child {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+}
+aside .sidebar a.active {
+  background: var(--color-light);
+  color: var(--color-primary);
+  margin-left: 0;
+}
+aside .sidebar a.active::before {
+  content: "";
+  width: 6px;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+aside .sidebar a.active span {
+  color: var(--color-primary);
+  margin-left: calc(1rem- 3rem);
+}
+
+aside .sidebar a:hover {
+  color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+  font-size: x-large;
+}
+
+
+/*==========================Main==================*/
+main {
+  margin-top: 2rem;
+}
+main .container1 {
+  border-radius: var(--border-radius-1);
+  margin-top: 1rem;
+  background-color: var(--color-primary);
+}
+
+main .container1 > div {
+  background-color: var(--color-white);
+  padding: var(--card-padding);
+  transition: all 300ms ease;
+}
+button,
+.button {
+  background-color: var(--color-dark-variant);
+  border-radius: 5px;
+  color: var(--color-primary);
+  padding: 8px 15px !important;
+  border: 3px solid transparent !important;
+  outline: none !important;
+  cursor: pointer;
+}
+button a,
+.button a {
+  color: var(--color-primary);
+}
+button:hover,
+.button:hover {
+  border: 3px solid var(--color-primary) !important;
+  background-color: white;
+}
+button a:hover,
+.button a:hover {
+  color: var(--color-primary);
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div .search {
+  display: flex;
+  align-items: center;
+}
+div .search input {
+  border-radius: 5px;
+  outline: none;
+  padding: 8px 1rem;
+  margin-right: 10px;
+  border: 1px solid var(--color-primary);
+}
+main table {
+  margin-top: 1rem;
+  width: 100%;
+  font-size: 15px;
+  padding: 1.5rem;
+  background: var(--color-white);
+  border-radius: var(--border-radius-2);
+  text-align: center;
+}
+
+form h1 {
+  text-align: center;
+  max-width: 768px;
+}
+.form-main {
+  max-width: 768px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-main .textbox {
+  padding: 10px 1rem;
+  width: 50%;
+}
+
+.form-main label {
+  font-size: 1rem;
+  display: block;
+  margin: 0 0 4px;
+}
+
+.form-main input,
+.form-main select,
+.form-main textarea {
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  color: #363949;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-primary);
+}
+
+.form-main textarea {
+  resize: vertical;
+}
+
+.form-main .button {
+  background-color: var(--color-dark-variant);
+  border-radius: 5px;
+  color: var(--color-primary);
+  margin: 10px 1rem !important;
+  border: 3px solid transparent !important;
+  outline: none !important;
+  cursor: pointer;
+  width: 100% !important;
+}
+
+.form-main .w-full {
+  padding: 10px 1rem;
+  width: 100%;
+}
+
+.dropdown-toggle .dropdown-menu {
+  display: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown-toggle {
+  position: relative;
+}
+
+.dropdown-toggle:hover .dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  padding: 10px 0;
+}
+
+.dropdown-menu li {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.houseowner {
+  margin: 10px;
+}
+.accordion {
+  width: 90%;
+  margin: 2rem auto;
+}
+.accordion-item {
+  background-color: #e7e36e5a;
+  color: #111;
+  margin: 1rem 0;
+  font-size: medium;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+}
+.accordion-item-header {
+  padding: 1rem 3rem 1rem 1rem;
+  min-height: 3.5rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.accordion-item-header:after {
+  content: "\002B";
+  font-size: 2rem;
+  position: absolute;
+  right: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+.accordion-item-header.active::after {
+  content: "\2212";
+}
+
+.accordion-item-body {
+  height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-item-body.active {
+  height: auto;
+}
+
+.accordion-item-body-content {
+  padding: 1rem;
+  line-height: 1.5rem;
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, transparent, #2324248d, transparent) 1;
+}
+

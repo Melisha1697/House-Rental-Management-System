@@ -1,7 +1,8 @@
 <?php
-if(!isset($_COOKIE['admin'])){
-    header("location:../login.php");
-}
+    if(!isset($_COOKIE['username'])){
+        header("location:./login.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,7 @@ if(!isset($_COOKIE['admin'])){
     <script src="./assets/js/tableExport.min.js"></script>
 
     <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/user.css">
 </head>
 
 <body>

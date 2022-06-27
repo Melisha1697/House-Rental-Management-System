@@ -1,5 +1,6 @@
 <?php
-session_start();
-session_destroy();
-header("location:.login.php");
+setcookie("username", '', time(), "/");
+setcookie("user", '', time(), "/");
+setcookie("admin", '', time(), "/");
+header("location:./login.php");
 ?>

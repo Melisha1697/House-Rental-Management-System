@@ -1,11 +1,11 @@
 <?php
-    if(!isset($_COOKIE['admin'])){
-        header("location:../login.php");
+    if(!isset($_COOKIE['username'])){
+        header("location:./login.php");
     }
 
-    include '../config/db_conn.php';
+    include './config/db_conn.php';
 
-    $query = "SELECT * FROM houses";
+    $query = "SELECT * FROM houses ";
     $result= mysqli_query($conn, $query);
 
     if(isset($_POST['search'])){
@@ -30,7 +30,7 @@
     <script src="./assets/js/tableExport.min.js"></script>
 
     <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/user.css">
 </head>
 
 <body>
@@ -43,19 +43,6 @@
                 <h2 style="padding: 1rem;">House List</h2>
                 <div class="list">
                     <div class="buttons-container">
-                        <div>
-                            <a href="./addHouse.php">
-                                <button class="add-tenant">Add House</button>
-                            </a>
-                            <button type="button" class="dropdown-toggle">
-                                <span>Export</span>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a class="dataExport" data-type="csv">CSV</a></li>
-                                    <li><a class="dataExport" data-type="excel">XLS</a></li>
-                                    <li><a class="dataExport" data-type="txt">TXT</a></li>
-                                </ul>
-                            </button>
-                        </div>
                         <form action="" method="POST" class="search">
                             <input type="text" name="title" placeholder="Search by title">
                             <input type="submit" name="search" value="Search" class="button">
@@ -69,9 +56,7 @@
                             <th>Address</th>
                             <th>Area</th>
                             <th>City</th>
-                            <th>Tenants</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <th></th>
                         </tr>
                         <?php
                             while($res = mysqli_fetch_array($result)){
@@ -83,17 +68,13 @@
                             <td><?php echo $res['address']; ?></td>
                             <td><?php echo $res['sq_ft']; ?> sq.ft</td>
                             <td><?php echo $res['city']; ?></td>
-                            <td><?php echo $res['tenant']; ?></td>
+
                             <td>
-                                <a href="editHouse.php?id=<?php echo $res['id']; ?>" class="edit">
-                                    <button>Edit </button>
+                                <a href="book.php?id=<?php echo $res['id']; ?>" class="edit">
+                                    <button>Book</button>
                                 </a>
                             </td>
-                            <td>
-                                <a href="deleteHouse.php?id=<?php echo $res['id']; ?>" class="delete">
-                                    <button>Delete</button>
-                                </a>
-                            </td>
+
                         </tr>
                         <?php 
                             }

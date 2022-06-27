@@ -1,50 +1,90 @@
-<?php include('./config/db_conn.php');
-session_start();
+<?php 
+include('./config/db_conn.php');
+error_reporting(0);
+if(isset($_COOKIE["user"])){
+  header("location:userhome.php");
+}
+
+if(isset($_COOKIE["admin"])) {
+  header("location:admin/");
+}
+
 if(isset($_POST['log'])){
+  $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $sql = "SELECT *FROM register WHERE email='$email' AND password ='$password'";
+  if($email == 'admin@gmail.com') {
+    $sql = "SELECT * FROM users WHERE username='$username' AND  email='$email' AND password ='$password' AND usertype = 'Admin'";
+  } else {
+    $sql = "SELECT * FROM users WHERE username='$username' AND  email='$email' AND password ='$password'";
+  }
   $result= mysqli_query($conn, $sql);
   if($result->num_rows > 0){
-    $row = mysqli_fetch_assoc($result);
-    $_SESSION['username'] = $row['username'];
-    header("Location: ");
+    echo  "<script>alert('Login Successful.')</script>";
+    if($email == 'admin@gmail.com') {
+      setcookie("username", $username, time() + (86400 * 30), "/");
+      setcookie("admin", $email, time() + (86400 * 30), "/"); // 1 month
+      header("location:admin/");
+    } else {
+      setcookie("username", $username , time() + (86400 * 30), "/");
+      setcookie("user", $email, time() + (86400 * 30), "/"); // 1 month
+      header("location:userhome.php");
+    }
   }else{
-    echo "<script>alter('Woops! Email or Password is incorrect')</script>";
+    echo "<script>alert('Woops! Email or Password is incorrect')</script>";
   }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/login.css">
-  <title>Log In</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
 </head>
+
 <body>
-  <div class="login-box">
-  <h1>Login</h1>
-  <form action="login.php" method="post">
-  <div class="textbox">
-      <img src="./assets/img/email.png" style="width: 25px;">
-      <input type="text" name="email" placeholder="Email" value="<?php echo $email; ?>" required>
+    <header>
+        <a href="/real_estate_website" class="logo">AAFNO PAAN</a>
+
+        <nav class="navbar">
+            <a href="/real_estate_website#home">Home</a>
+            <a href="/real_estate_website#services">Services</a>
+            <a href="/real_estate_website#featured">Featured</a>
+            <a href="/real_estate_website#agents">Agents</a>
+            <a href="/real_estate_website#contact">Contact</a>
+            <a href="help.php">Help</a>
+        </nav>
+    </header>
+
+    <div class="login-box">
+        <h1>Login</h1>
+        <form action="login.php" method="post">
+            <div class="textbox">
+                <img src="./assets/img/user.png" style="width: 25px;">
+                <input type="text" name="username" placeholder="Username" value="<?php echo $username;?>" required>
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/email.png" style="width: 25px;">
+                <input type="text" name="email" placeholder="Email" value="<?php echo $email;?>" required>
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/lock.png">
+                <input type="password" name="password" placeholder="Password" value="<?php echo  $_POST['password']; ?>"
+                    required>
+            </div>
+            <input class="login-btn" type="submit" value="Log In" name="log">
+            <div class="login">
+                <span class="login-register-text">Don't have an account?</span>
+                <br>
+                <a href="register.php">Register Here</a>
+            </div>
+        </form>
     </div>
-    <div class="textbox">
-      <img src="./assets/img/lock.png">
-      <input type="password" name="password" placeholder="Password" value="<?php echo  $_POST['password']; ?>"required>
-    </div>
-    <input class="btn" type="submit" value="Log In" name="log" >
-    <div class="remarks">
-      <a href="register.php"> Forgot password?</a>
-    </div>
-    <div class="register">
-        <span class="login-register-text">Don't have account?</span> 
-        <a href="register.php">Register Here</a>
-    </div>
-    </div>
-  </form>
 </body>
+
 </html>
