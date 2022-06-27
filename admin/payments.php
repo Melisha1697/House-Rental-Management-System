@@ -27,6 +27,69 @@ if(!isset($_COOKIE['admin'])){
         <!------------------End of Aside----------------------->
         <main>
             <h1>Payments</h1>
+            <div class="container1">
+                <h2 style="padding: 1rem;">List of Tenants</h2>
+                <div class="list">
+                    <div class="buttons-container">
+                        <div>
+                            <a href="./addTenant.php">
+                                <button class="add-tenant">Add Tenant</button>
+                            </a>
+                            <button type="button" class="dropdown-toggle">
+                                <span>Export</span>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dataExport" data-type="csv">CSV</a></li>
+                                    <li><a class="dataExport" data-type="excel">XLS</a></li>
+                                    <li><a class="dataExport" data-type="txt">TXT</a></li>
+                                </ul>
+                            </button>
+                        </div>
+                        <form action="" method="POST" class="search">
+                            <input type="text" name="name" placeholder="Search by name">
+                            <input type="submit" name="search" value="Search" class="button">
+                        </form>
+                    </div>
+
+                    <table cellpadding="12" cellspacing="8" id="dataTable" class="table table-striped">
+                        <tr>
+                            <th>Id</th>
+                            <th>Tenants_id</th>
+                            <th>House Rented</th>
+                            <th>Monthly Amt</th>
+                            <th>Total Paid</th>
+                            <th>Last Date</th>
+                            <th>Total Balance</th>
+                            <th>Remaining Balance</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                        <?php
+                            //while($res = mysqli_fetch_array($result)){
+                            ?>
+                        <tr>
+                            <td><?php //echo $res['id']; ?></td>
+                            <td><?php //echo $res['full_name']; ?></td>
+                            <td><?php //echo $res['email']; ?></td>
+                            <td><?php //echo $res['citizenship']; ?></td>
+                            <td><?php //echo $res['phone']; ?></td>
+                            <td><?php //echo $res['address']; ?></td>
+                            <td>
+                                <a href="editTenant.php?id=<?php echo $res['id']; ?>"
+                                    class="edit"><button>Edit</button></a>
+
+                            </td>
+                            <td>
+                                <a href="deleteTenant.php?id=<?php echo $res['id']; ?>" class="delete">
+                                    <button>Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php 
+                            //}
+                        ?>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
 </body>

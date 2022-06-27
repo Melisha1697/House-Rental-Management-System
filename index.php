@@ -57,7 +57,8 @@ if(isset($_POST['search'])){
             <div id="menu-bars" class="fas fa-bars"></div>
             <a class="fas fa-search" id="searchPopup"></a>
             <div class=" popup" id="popup">
-                <form action="search.php" method="POST" class="search">
+                <i class="fa-solid fa-circle-xmark" style="color: #333;" onclick="closePopup()"></i>
+                <form action=" search.php" method="POST" class="search">
                     <input type="text" name="title" placeholder="Search by title">
                     <button type="submit" name="search" value="Search">
                         <img src="./assets/img/search.png" alt="">
@@ -359,6 +360,7 @@ if(isset($_POST['search'])){
     </script>
 
     <script src="./assets/js/srcollup.js"></script>
+
 </body>
 
 </html>

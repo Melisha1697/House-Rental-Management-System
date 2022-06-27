@@ -39,29 +39,85 @@
             <div class="accordion">
                 <div class="accordion-item">
                     <div class="accordion-item-header">
-                        What is Affno paan?
+                        What’s the first step I should take?
                     </div>
                     <div class="accordion-item-body">
                         <div class="accordion-item-body-content">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam excepturi incidunt
-                                est
-                                commodi perferendis. Minima impedit tenetur ipsum nostrum repudiandae itaque,
-                                corrupti
-                                cum, voluptatum quis ad ducimus perspiciatis debitis fuga.</p>
+                            <p>Unless you plan on paying with cash, your first step will be to get pre-approved for a
+                                loan. Once you get pre-approved, you will know with more accuracy the price of the home
+                                you can afford.</p>
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <div class="accordion-item-header">
-                        Why Affno paan?
+                        What is pre-qualifying versus pre-approval?
                     </div>
                     <div class="accordion-item-body">
                         <div class="accordion-item-body-content">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam excepturi incidunt
-                                est
-                                commodi perferendis. Minima impedit tenetur ipsum nostrum repudiandae itaque,
-                                corrupti
-                                cum, voluptatum quis ad ducimus perspiciatis debitis fuga.</p>
+                            <p> In pre-qualification, you are given an estimate of what you may be able to borrow. This
+                                is a quick way to know what price range you should be looking in. Pre-approval means a
+                                financial institution has agreed to work with you and has taken a thorough look through
+                                your finances.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-item-header">
+                        Why should I use a realtor to help me buy a home?
+                    </div>
+                    <div class="accordion-item-body">
+                        <div class="accordion-item-body-content">
+                            <p> Our AAFNO-PAAN will handle everything you need from start to finish. That
+                                includes paperwork, negotiations, inspections and so much more.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-item-header">
+                        How much money do I need for a down payment?
+                    </div>
+                    <div class="accordion-item-body">
+                        <div class="accordion-item-body-content">
+                            <p> All loan options are different, but the average down payment is now 3% to 5%. If you or
+                                the property you’re purchasing qualifies for a VA loan, you aren’t required to
+                                put any money down.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-item-header">
+                        Can I buy a home and sell my current one at the same time?
+                    </div>
+                    <div class="accordion-item-body">
+                        <div class="accordion-item-body-content">
+                            <p> Yes, you definitely can. We would highly recommend working with a AAFNO-PAAN to
+                                help make the transition between selling and buying as smooth as possible.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-item-header">
+                        How many homes should I see before making an offer?
+                    </div>
+                    <div class="accordion-item-body">
+                        <div class="accordion-item-body-content">
+                            <p> You should see as many as you need to ensure you find the perfect home. On average, home
+                                buyers will look at hundreds of homes online but will see 10 homes in person before
+                                writing an offer. If you’re looking for a way to narrow down your search, sign up for a
+                                personal shopper report.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-item-header">
+                        When can I back out if I change my mind?
+                    </div>
+                    <div class="accordion-item-body">
+                        <div class="accordion-item-body-content">
+                            <p> You can always back out of a deal, but you may have to forfeit the earnest money you put
+                                down with the offer. Earnest money is typically around 1%-2% of the home’s price. Learn
+                                more about writing an offer here.</p>
                         </div>
                     </div>
                 </div>

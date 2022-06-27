@@ -20,6 +20,10 @@
             <span class="material-symbols-sharp">house</span>
             <h3>Houses</h3>
         </a>
+        <a href="book.php" class="<?php echo $url == ("book.php") ? "active" : "" ?>">
+            <span class="material-symbols-sharp">book</span>
+            <h3>Reservation</h3>
+        </a>
         <a href="payments.php" class="<?php echo $url == "payments.php" ? "active" : "" ?>">
             <span class="material-symbols-sharp">payments</span>
             <h3>Payments</h3>

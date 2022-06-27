@@ -28,6 +28,14 @@
         <!------------------End of Aside----------------------->
         <main>
             <h1>Reports</h1>
+            <div class="container">
+                <div class="container1">
+                    <h1>Monthly Payment Details</h1>
+                </div>
+                <div class="container1">
+                    <h1>Rental Payment Balance</h1>
+                </div>
+            </div>
         </main>
     </div>
 </body>

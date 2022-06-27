@@ -52,6 +52,7 @@ body {
   gap: 1.8rem;
   grid-template-columns: 14rem auto;
 }
+
 a {
   color: var(-color-dark);
   cursor: pointer;
