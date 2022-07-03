@@ -5,16 +5,32 @@
 
     include './config/db_conn.php';
 
-    $query = "SELECT * FROM houses ";
+    $username = $_COOKIE['username'];
+
+    $query1 = "SELECT * FROM users WHERE username = '$username'";
+    $result1 = mysqli_query($conn, $query1);
+    $res1= mysqli_fetch_assoc($result1);
+    $userID = $res1['user_id'];
+
+    $query = "";
+    
+    $query2 = "SELECT COUNT(*) AS totalbooking FROM booking";
+    $result2 = mysqli_query($conn, $query2);
+    
+    $res2= mysqli_fetch_assoc($result2);
+     if($res2['totalbooking']==0){
+        $query= "SELECT *FROM houses";
+     }else{
+        $query = "SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id != booking.house_id GROUP BY house_id";
+     }
     $result= mysqli_query($conn, $query);
 
     if(isset($_POST['search'])){
         $title = $_POST['title'];
         
-        $query = "SELECT * FROM houses WHERE (`title` LIKE '%". $title. "%')";
+        $query = "SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id != booking.house_id WHERE (`title` LIKE '%". $title. "%') GROUP BY house_id";
         $result= mysqli_query($conn, $query);
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,14 +72,13 @@
                             <th>Address</th>
                             <th>Area</th>
                             <th>City</th>
-                            <th>Booking_date</th>
                             <th></th>
                         </tr>
                         <?php
                             while($res = mysqli_fetch_array($result)){
                         ?>
                         <tr>
-                            <td><?php echo $res['id']; ?></td>
+                            <td><?php echo $res['house_id']; ?></td>
                             <td><?php echo $res['title']; ?></td>
                             <td>Rs <?php echo $res['price']; ?></td>
                             <td><?php echo $res['address']; ?></td>
@@ -71,8 +86,8 @@
                             <td><?php echo $res['city']; ?></td>
 
                             <td>
-                                <a href="book.php?id=<?php echo $res['id']; ?>" class="edit">
-                                    <button>Book</button>
+                                <a href="view.php?id=<?php echo $res['house_id']; ?>" class="edit">
+                                    <button>View</button>
                                 </a>
                             </td>
 

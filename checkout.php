@@ -1,10 +1,46 @@
 <?php
+    if(!isset($_COOKIE['username'])){
+        header("location:./login.php");
+    }
+
+    $username = $_COOKIE['username'];
+    
     include './config/db_conn.php';
     $id =$_GET['id'];
     $query = "Select * from houses where house_id = '$id'";
     
     $result = mysqli_query($conn, $query);
     $res= mysqli_fetch_assoc($result);
+    $houseID  = $res['house_id'];
+    $houseAmount = $res['price'];
+
+
+    // user
+    $userQuery = "SELECT * FROM `users` WHERE username = '$username'";
+    $userResult = mysqli_query($conn, $userQuery);
+    $userRes = mysqli_fetch_assoc($userResult);
+    $userID = $userRes['user_id'];
+
+
+    if(isset($_POST['add'])){
+        $email = $userRes['email'];
+        $phone = $userRes['phone'];
+        $credit_card = $_POST['credit_card'];
+        $totalPrice = $res['price'];
+        $total_paid = $_POST['total_paid'];
+
+        $outstanding_amt = (int)$totalPrice - (int)$total_paid;
+
+        $dt = date('Y-m-d');
+        $expiry_date = date('Y-m-d', strtotime($dt. ' + 1 months'));
+    
+        $query = "INSERT INTO `booking`(`user_id`, `house_id`, `email`, `phone`, `credit_card`, `expiry_date`, `total_price`, `total_paid`, `outstanding_amt`) VALUES ('$userID','$houseID','$email','$phone','$credit_card', '$expiry_date', '$totalPrice','$total_paid','$outstanding_amt')";
+    
+        echo $query;
+        $result= mysqli_query($conn, $query);
+        header('location: userhome.php');
+        
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,13 +56,13 @@
     <script src="./assets/js/tableExport.min.js"></script>
 
     <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/view.css">
+    <link rel="stylesheet" href="./assets/css/checkout.css">
 </head>
 
 <body>
     <header>
         <a href="index.php" class="logo">
-            <span> AAFNO </span> PAAN
+            <span>AAFNO </span> PAAN
         </a>
         <nav class="navbar">
             <a href="/real_estate_website#home">home</a>
@@ -43,7 +79,8 @@
             <a href="register.php" class="fas fa-sign-in-alt" title="Register From Here!!"></a>
         </div>
     </header>
-    <div style="margin-top: 65px;"></div>
+    <div style="margin-top: 70px;"></div>
+    <h1 class="main-title">Thank You for choosing <?php echo $res['title'] ?></h1>
     <section class="house-details-container">
         <div class="left">
             <div class="image-container">
@@ -52,39 +89,41 @@
                     ?>
                 <img src="<?php echo $imageURL; ?>" alt="<?php echo $res['title'] ?>" />
             </div>
+
+            <div class="house-details">
+                <h1>
+                    <?php echo $res['title']; ?> (<?php echo $res['house_no']; ?>)
+                </h1>
+            </div>
+        </div>
+        <div>
         </div>
         <div class="right">
-            <h1>
-                <?php echo $res['title']; ?> (<?php echo $res['house_no']; ?>)
-            </h1>
-            <div class="col">
-                <div class="row">
-                    <h3>Price: <span><?php echo $res['price']; ?></span></h3>
-                    <h3>Address: <span><?php echo $res['address']; ?></span></h3>
-                </div>
-                <div class="row">
-                    <h3>Area: <span><?php echo $res['sq_ft']; ?></span></h3>
-                    <h3>Garage: <span><?php echo $res['garage']; ?></span></h3>
-                </div>
-                <div class="row">
-                    <h3>Bedrooms: <span><?php echo $res['bedrooms']; ?></span></h3>
-                    <h3>Bathrooms: <span><?php echo $res['bathrooms']; ?></span></h3>
-                </div>
-                <div class="row">
-                    <h3>City: <span><?php echo $res['city']; ?></span></h3>
-                    <h3>State: <span><?php echo $res['state']; ?></span></h3>
-                </div>
-                <div class="description">
-                    <h3>Description: </h3>
-                    <p><?php echo $res['description']; ?></p>
-                </div>
-            </div>
-            <div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <h1 class="">Payment Details</h1>
+                <div class="price-container">
+                    <div class="row">
+                        <h3>Your total payable price: Rs. <?php echo $res['price']; ?></h3>
 
-                <a href="checkout.php?id=<?php echo $res['house_id'] ?>">
-                    <button class="btn w-full">Book Now</button>
-                </a>
-            </div>
+                    </div>
+                </div>
+                <div class="form-main">
+                    <div class="textbox">
+                        <label for="credit_card">Credit Card</label>
+                        <input type="number" name="credit_card" required>
+                    </div>
+                    <div class="textbox">
+                        <label for="total_paid">Payment Amount</label>
+                        <input type="number" min="0" max="<?php echo $res['price'] ?>" name="total_paid" required>
+                    </div>
+
+                    <div class="textbox">
+                        <input type="submit" name="add" value="Pay Now" class="btn  w-full">
+                    </div>
+                </div>
+
+            </form>
+        </div>
         </div>
     </section>
 

@@ -1,36 +1,53 @@
 <?php
 if(!isset($_COOKIE['admin'])){
-    header("location:../login.php");
+    header("location:../../login.php");
 }
-include '../config/db_conn.php';
 
-$id =$_GET['id'];
-$query = "Select *from houses where id= '$id'";
+include '../../config/db_conn.php';
+
+$id = $_GET['id'];
+$query = "Select * from houses where house_id= '$id'";
 
 $result = mysqli_query($conn, $query);
 $res= mysqli_fetch_assoc($result);
 
 if(isset($_POST['update'])){
+
+    
     $house_no= $_POST['house_no'];
     $title= $_POST['title'];
-     $zipcode= $_POST['zipcode'];
-     $sq_ft= $_POST['sq_ft'];
-     $address= $_POST['address'];
-     $city= $_POST['city'];
-     $state= $_POST['state'];
-    //  $image= $_POST['image'];
-     $description = $_POST['description'];
-     $price = $_POST['price'];
-     $tenant = $_POST['tenant'];
-     $bedrooms = $_POST['bedrooms'];
-     $bathrooms = $_POST['bathrooms'];
+    $zipcode= $_POST['zipcode'];
+    $sq_ft= $_POST['sq_ft'];
+    $address= $_POST['address'];
+    $city= $_POST['city'];
+    $state= $_POST['state'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $bedrooms = $_POST['bedrooms'];
+    $bathrooms = $_POST['bathrooms'];
     $garage= $_POST['garage'];
 
-    $sql = "UPDATE `houses` SET `title`= '$title', `price` = '$price', `address`= '$address', `house_no` = '$house_no', `description`= '$description', `sq_ft`= '$sq_ft',`bedrooms`= '$bedrooms', `bathrooms`= '$bathrooms', `city`= '$city', `state`= '$state', `zipcode`= '$zipcode', `tenant`= '$tenant', `garage`= '$garage' WHERE id = $id";
+    if(!empty($_FILES['house']['name'])){
+        $targetDir = "../uploads/";
+        $fileName = basename($_FILES["house"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+    
+        $allowTypes = array('jpg','png','jpeg','gif');
+        
+        if(move_uploaded_file($_FILES["house"]["tmp_name"], $targetFilePath)){
+            $sql = "UPDATE `houses` SET `title`= '$title', `price` = '$price', `address`= '$address', `house_no` = '$house_no', `description`= '$description', `sq_ft`= '$sq_ft',`bedrooms`= '$bedrooms', `bathrooms`= '$bathrooms', `city`= '$city', `state`= '$state', `zipcode`= '$zipcode', `garage`= '$garage', `file_name` = '$fileName'  WHERE house_id = $id";
 
-    $result2= mysqli_query($conn, $sql);
-    header('location: houses.php');
-}
+            $result2= mysqli_query($conn, $sql);
+        }       
+
+    }else{
+        $sql = "UPDATE `houses` SET `title`= '$title', `price` = '$price', `address`= '$address', `house_no` = '$house_no', `description`= '$description', `sq_ft`= '$sq_ft',`bedrooms`= '$bedrooms', `bathrooms`= '$bathrooms', `city`= '$city', `state`= '$state', `zipcode`= '$zipcode', `garage`= '$garage'  WHERE house_id = $id";
+
+        $result2= mysqli_query($conn, $sql);
+    }
+    header('location: ./');
+} 
 
 ?>
 <!DOCTYPE html>
@@ -44,18 +61,18 @@ if(isset($_POST['update'])){
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./assets/js/tableExport.min.js"></script>
+    <script src="../assets/js/tableExport.min.js"></script>
 
-    <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <script src="../assets/js/export.js"></script>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
 <body>
     <div class="container">
-        <?php include './menu.php' ?>
+        <?php include '../menu.php' ?>
 
         <main class="form1">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <h1 class="">Update House Details</h1>
                 <div class="form-main">
 
@@ -107,23 +124,23 @@ if(isset($_POST['update'])){
                             <option value="Province-7">Province-7</option>
                         </select>
                     </div>
-                    <!-- <div class="textbox">
-                <label for="image">Image</label>
-                <input type="file" name="image">
-            </div> -->
                     <div class="textbox">
                         <label for="price">Price</label>
                         <input type="number" name="price" value="<?php echo $res['price']?>" required>
                     </div>
-                    <div class="textbox">
-                        <label for="tenant">Tenant</label>
-                        <input type="text" name="tenant" value="<?php echo $res['tenant']?>" required>
-                    </div>
                     <div class="textbox w-full">
                         <label for="description">Description</label>
-                        <textarea name="description" required>
-                            <?php echo $res['description']?>
-                        </textarea>
+                        <textarea name="description" required><?php echo $res['description']?></textarea>
+                    </div>
+                    <div style="margin: 1rem;">
+                        <?php
+                            $imageURL = '../uploads/'. $res["file_name"];
+                        ?>
+                        <img width="150px" height="150px" src="<?php echo $imageURL; ?>" alt="" />
+                    </div>
+                    <div class="textbox w-full">
+                        <label for="house">Image</label>
+                        <input type="file" name="house">
                     </div>
 
                     <input type="submit" name="update" value="Update" class="button w-full"></button>

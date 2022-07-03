@@ -1,17 +1,5 @@
 <?php
 include('./config/db_conn.php');
-
-
-$query = "SELECT * FROM houses";
-$result= mysqli_query($conn, $query);
-
-if(isset($_POST['search'])){
-    $title = $_POST['title'];
-    
-    $query = "SELECT * FROM houses WHERE (`title` LIKE '%". $title. "%')";
-    $result= mysqli_query($conn, $query);
-    header("location:search.php");
-}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +15,9 @@ if(isset($_POST['search'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <!-- custom css file link  -->
+
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/dark.css">
 
 </head>
 
@@ -68,6 +58,14 @@ if(isset($_POST['search'])){
             </div>
             <a href=" login.php" class="fas fa-user" title="Login Here!"></a>
             <a href="register.php" class="fas fa-sign-in-alt" title="Register From Here!!"></a>
+            <div class="mode">
+                <input type="checkbox" class="checkbox" id="chk" />
+                <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
         </div>
     </header>
 
@@ -142,16 +140,28 @@ if(isset($_POST['search'])){
 
         <div class="box-container">
             <?php
-          $house = $conn->query("SELECT * FROM houses");
+                $house = "";
+    
+                $query2 = "SELECT COUNT(*) AS totalbooking FROM booking";
+                $result2 = mysqli_query($conn, $query2);
+                
+                $res2= mysqli_fetch_assoc($result2);
+                 if($res2['totalbooking']==0){
+                    $house=  $conn->query("SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` LIMIT 6");
+                 }else{
+                    $house = $conn->query("SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id != booking.house_id LIMIT 6");
+                 }
+            
+     
+
           while($row=$house->fetch_assoc()):
-          ?>
-            <?php
-            $house_img = $conn->query("SELECT * FROM `house_images` WHERE id =". $row["Image"]." LIMIT 1");
-            while($row2=$house_img->fetch_assoc()):
           ?>
             <div class="box">
                 <div class="image-container">
-                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row2['image']).'"/>' ?>
+                    <?php
+                     $imageURL = 'admin/uploads/'. $row["file_name"];
+                    ?>
+                    <img src="<?php echo $imageURL; ?>" alt="" />
                     <div class="info">
                         <h3>for rent</h3>
                     </div>
@@ -174,11 +184,10 @@ if(isset($_POST['search'])){
                         <h3><i class="fas fa-car"></i> <?php echo $row['garage'] ?> garage</h3>
                     </div>
                     <div class="buttons">
-                        <a href="view.php?id=<?php echo $row['id']; ?>" class="btn">view details</a>
+                        <a href="view.php?id=<?php echo $row['house_id']; ?>" class="btn">view details</a>
                     </div>
                 </div>
             </div>
-            <?php endwhile; ?>
             <?php endwhile; ?>
         </div>
     </section>
@@ -193,27 +202,30 @@ if(isset($_POST['search'])){
         <div class="box-container">
             <?php 
           $i = 1;
-          $house = $conn->query("SELECT * FROM users");
+          $house = $conn->query("SELECT * FROM users LIMIT 4");
           while($row=$house->fetch_assoc()):
-            if($row['usertype'] != 'Admin')
+            if($row['usertype'] != 'Admin') {
+                
+            $imageURL = "admin/uploads/users/". $row["user_img"];
             echo "<div class='box'>
-              <a href='mailto:".$row['email']."'>
-                  <i class='fas fa-envelop'></i>
+                <a href='mailto:".$row['email']."'>
+                    <i class='fas fa-envelop'></i>
                 </a>
                 <a href='tel:+".$row['phone']."'>
-                  <i class='fas fa-phone'></i>
+                    <i class='fas fa-phone'></i>
                 </a>
-                <img src='./assets/images/pic-1.png' alt='' />
+                <img src='$imageURL' alt='' />
                 <h3>".$row['full_name']."</h3>
                 <span>".$row['usertype']."</span>
                 <div class='share'>
-                  <a href='#' class='fab fa-facebook-f'></a>
-                  <a href='#' class='fab fa-twitter'></a>
-                  <a href='#' class='fab fa-instagram'></a>
-                  <a href='#' class='fab fa-linkedin'></a>
+                    <a href='#' class='fab fa-facebook-f'></a>
+                    <a href='#' class='fab fa-twitter'></a>
+                    <a href='#' class='fab fa-instagram'></a>
+                    <a href='#' class='fab fa-linkedin'></a>
                 </div>
-              </div>"
-          ?>
+            </div>";
+            }
+            ?>
 
             <?php endwhile; ?>
         </div>
@@ -335,7 +347,7 @@ if(isset($_POST['search'])){
 
     document.addEventListener("scroll", () => {
         let header = document.querySelector("header");
-        if (window.scrollY > 250) {
+        if (window.scrollY > 100) {
             header.style.background = "#333";
         } else {
             header.style.background = "transparent";
@@ -360,6 +372,29 @@ if(isset($_POST['search'])){
     </script>
 
     <script src="./assets/js/srcollup.js"></script>
+
+    <script>
+    const chk = document.getElementById('chk');
+    if (localStorage.getItem('dark-real-state')) {
+        document.body.classList.add('dark');
+        localStorage.setItem('dark-real-state', 'active');
+        chk.checked = true
+    } else {
+        document.body.classList.remove('dark');
+        localStorage.removeItem('dark-real-state')
+        chk.checked = false
+    }
+
+    chk.addEventListener('change', () => {
+        document.body.classList.toggle('dark');
+
+        if (document.body.classList.contains('dark')) {
+            localStorage.setItem('dark-real-state', 'active');
+        } else {
+            localStorage.removeItem('dark-real-state')
+        }
+    });
+    </script>
 
 </body>
 

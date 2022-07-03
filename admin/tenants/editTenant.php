@@ -1,13 +1,22 @@
 <?php
-    include '../config/db_conn.php';
+    if(!isset($_COOKIE['admin'])){
+        header("location:../../login.php");
+    }
+    
+    include '../../config/db_conn.php';
 
     $id =$_GET['id'];
-    $query = "Select * from users WHERE id = '$id' AND usertype = 'Tenants'";
+    $query = "Select * from users WHERE user_id = '$id' AND usertype = 'Tenants'";
 
     $result = mysqli_query($conn, $query);
     $res= mysqli_fetch_assoc($result);
 
-    if(isset($_POST['update'])){
+    if(isset($_POST['update']) && !empty($_FILES['user']['name'])){
+        $targetDir = "../uploads/users/";
+        $fileName = basename($_FILES["user"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+    
         $full_name= $_POST['full_name'];
         $email = $_POST['email'];
         $citizenship= $_POST['citizenship'];
@@ -17,10 +26,13 @@
         $phone = $_POST['phone'];
         $username = $_POST['username'];
 
-        $sql = "UPDATE `users` SET `full_name`='$full_name',`email`='$email',`citizenship`='$citizenship',`address`='$address',`dob`='$dob',`usertype`='$usertype',`phone`='$phone',`username`='$username' WHERE `id` = '$id' AND usertype = 'Tenants'";
-        
-        $result2 = mysqli_query($conn, $sql);
-        header('location: tenants.php');
+        if(move_uploaded_file($_FILES["user"]["tmp_name"], $targetFilePath)){
+            $sql = "UPDATE `users` SET `full_name`='$full_name',`email`='$email',`citizenship`='$citizenship',`address`='$address',`dob`='$dob',`usertype`='$usertype',`phone`='$phone',`username`='$username', `user_img` = '$fileName' WHERE `user_id` = '$id' AND usertype = 'Tenants'";
+            
+            $result2 = mysqli_query($conn, $sql);
+            header('location: ./');
+        }
+
     }
 ?>
 <!DOCTYPE html>
@@ -34,18 +46,18 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./assets/js/tableExport.min.js"></script>
+    <script src="../assets/js/tableExport.min.js"></script>
 
-    <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <script src="../assets/js/export.js"></script>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
 <body>
     <div class="container">
-        <?php include './menu.php' ?>
+        <?php include '../menu.php' ?>
         <!-- main -->
         <main class="form1">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <h1 class="">Update Tenant Details</h1>
                 <br>
                 <div class="form-main">
@@ -76,6 +88,17 @@
                     <div class="textbox">
                         <label for="phone">Contact No.</label>
                         <input type="tel" value="<?php echo $res['phone'] ?>" name="phone">
+                    </div>
+                    <br>
+                    <div style="margin: 1rem;">
+                        <?php
+                            $imageURL = '../uploads/users/'. $res["user_img"];
+                        ?>
+                        <img width="150px" height="150px" src="<?php echo $imageURL; ?>" alt="" />
+                    </div>
+                    <div class="textbox w-full">
+                        <label for="user">Image</label>
+                        <input type="file" name="user">
                     </div>
 
 

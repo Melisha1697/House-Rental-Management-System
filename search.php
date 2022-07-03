@@ -1,13 +1,17 @@
 <?php
+    if(!isset($_COOKIE['username'])){
+        header("location:./login.php");
+    }
+
     include './config/db_conn.php';
 
-    $query = "SELECT * FROM houses";
+    $query = "SELECT * FROM houses INNER JOIN booking ON houses.id != booking.house_id";
     $result= mysqli_query($conn, $query);
 
     if(isset($_POST['search'])){
         $title = $_POST['title'];
         
-        $query = "SELECT * FROM houses WHERE (`title` LIKE '%". $title. "%')";
+        $query = "SELECT * FROM houses INNER JOIN booking ON houses.id != booking.house_id WHERE (`title` LIKE '%". $title. "%')";
         $result= mysqli_query($conn, $query);
         
     }
@@ -60,37 +64,50 @@
         </form>
     </div>
 
-    <div>
-        <table cellpadding="12" cellspacing="8" id="dataTable" class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Address</th>
-                <th>Area</th>
-                <th>City</th>
-                <th></th>
-            </tr>
+    <section class="featured" id="featured">
+        <h1 class="heading"><span>Your Search</h1>
+        <div class="box-container">
             <?php
-        while($res = mysqli_fetch_array($result)){
-        ?>
-            <tr>
-                <td><?php echo $res['id']; ?></td>
-                <td><?php echo $res['title']; ?></td>
-                <td>Rs <?php echo $res['price']; ?></td>
-                <td><?php echo $res['address']; ?></td>
-                <td><?php echo $res['sq_ft']; ?> sq.ft</td>
-                <td><?php echo $res['city']; ?></td>
-
-                <td>
-                    <a href="book.php?id=<?php echo $res['id']; ?>" class="edit">
-                        <button>Book</button>
-                    </a>
-                </td>
-            </tr>
-            <?php } ?>
-        </table>
-    </div>
+                while($res = mysqli_fetch_array($result)){
+            ?>
+            <div class="box">
+                <div class="image-container">
+                    <?php
+                     $imageURL = 'admin/uploads/'. $res["file_name"];
+                    ?>
+                    <img src="<?php echo $imageURL; ?>" alt="" />
+                    <div class="info">
+                        <h3>for rent</h3>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="price">
+                        <h3><?php echo number_format($res['price'],2) ?></h3>
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="fas fa-envelope"></a>
+                        <a href="#" class="fas fa-phone"></a>
+                    </div>
+                    <div class="location">
+                        <h3><?php echo $res['title'] ?></h3>
+                        <p><?php echo $res['address'] ?></p>
+                    </div>
+                    <div class="details">
+                        <h3><i class="fas fa-expand"></i> <?php echo $res['sq_ft'] ?> sqft</h3>
+                        <h3><i class="fas fa-bed"></i> <?php echo $res['bedrooms'] ?> beds</h3>
+                        <h3><i class="fas fa-bath"></i> <?php echo $res['bathrooms'] ?> baths</h3>
+                        <h3><i class="fas fa-car"></i> <?php echo $res['garage'] ?> garage</h3>
+                    </div>
+                    <div class="buttons">
+                        <a href="view.php?id=<?php echo $res['id']; ?>" class="btn">view details</a>
+                    </div>
+                </div>
+            </div>
+            <?php 
+                }
+            ?>
+        </div>
+        </div>
+    </section>
 
     <section class="footer">
         <div class="footer-container">

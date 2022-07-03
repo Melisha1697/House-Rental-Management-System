@@ -1,7 +1,17 @@
 <?php
-include '../config/db_conn.php';
+if(!isset($_COOKIE['admin'])){
+    header("location:../../login.php");
+}
 
-if(isset($_POST['add'])){
+include '../../config/db_conn.php';
+
+if(isset($_POST['add']) && !empty($_FILES['user']['name'])){
+    $targetDir = "../uploads/users/";
+    $fileName = basename($_FILES["user"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+    $allowTypes = array('jpg','png','jpeg','gif');
     $full_name= $_POST['full_name'];
     $email = $_POST['email'];
     $citizenship= $_POST['citizenship'];
@@ -15,14 +25,14 @@ if(isset($_POST['add'])){
 
     if($password != $confirm_password) {
         echo "<script>alert('Password not matched.')</script>";
-    } else {
-        $query = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`) 
-        VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password','$username')";
+    } else if(move_uploaded_file($_FILES["user"]["tmp_name"], $targetFilePath)){
+        $query = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`, `user_img`) 
+        VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password','$username', '$fileName')";
         
         $result= mysqli_query($conn, $query);
-        header('location: tenants.php');
-        }
+        header('location: ./');
     }
+}
 
 ?>
 <!DOCTYPE html>
@@ -36,18 +46,18 @@ if(isset($_POST['add'])){
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./assets/js/tableExport.min.js"></script>
+    <script src="../assets/js/tableExport.min.js"></script>
 
-    <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <script src="../assets/js/export.js"></script>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
 <body>
     <div class="container">
-        <?php include './menu.php' ?>
+        <?php include '../menu.php' ?>
         <!-- main -->
         <main class="form1">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <h1 class="">Add Tenant Details</h1>
                 <br>
                 <div class="form-main">
@@ -88,6 +98,10 @@ if(isset($_POST['add'])){
                     <div class="textbox">
                         <label for="confirm_password">Confirm Password</label>
                         <input type="password" name="confirm_password">
+                    </div>
+                    <div class="textbox w-full">
+                        <label for="user">Image</label>
+                        <input type="file" name="user">
                     </div>
 
 

@@ -32,13 +32,8 @@ section {
   padding: 2rem 9%;
 }
 
-#scrollUp {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 2rem;
-  width: 1rem;
-  background-color: red;
+.w-full {
+  width: 100% !important;
 }
 
 .btn {
@@ -65,7 +60,32 @@ section {
   padding-bottom: 3rem;
 }
 
+/* Go up */
+.go-up-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  outline: none;
+  border: none;
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 5000;
+}
+
+.go-up-button i {
+  font-size: 20px;
+  color: var(--color-primary);
+}
+
 header {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -74,6 +94,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #333;
 }
 
 header .logo {
@@ -83,13 +104,13 @@ header .logo {
 }
 
 header .navbar a {
-  color: rgb(12, 12, 12);
+  color: #fff;
   font-size: 2rem;
   padding: 0 1.5rem;
 }
 
 header .navbar a:hover {
-  color: var(--color-primary);
+  color: var(--orange);
 }
 
 header .icons #menu-bars,
@@ -100,7 +121,7 @@ header .icons a {
   font-size: 2rem;
   margin-right: 0.5rem;
   border-radius: 0.5rem;
-  color: rgb(12, 12, 12);
+  color: #fff;
   text-align: center;
 }
 
@@ -113,192 +134,88 @@ header .icons a:hover {
 header .icons #menu-bars {
   display: none;
 }
-.popup {
-  padding-top: 70px;
-  height: 200px;
+
+/* ========================== House Details ======= */
+
+.main-title {
+  font-size: 28px;
+  text-align: center;
+  padding-top: 1rem;
 }
 
-.search {
+.house-details-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.house-details-container .left,
+.house-details-container .right {
   width: 50%;
-  padding: 15px 20px;
-  margin-left: 320px;
-  background: rgb(233, 184, 48);
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .house-details-container .left,
+  .house-details-container .right {
+    width: 100%;
+  }
+}
+
+.house-details-container .left img {
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 5px 5px 1rem 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
-.search input {
+.house-details-container .house-details {
+  margin-top: 1rem;
+}
+
+.house-details-container .house-details h1 {
   font-size: 18px;
-  font-weight: bold;
-  display: inline-block;
-  background: rgb(233, 184, 48);
-  color: rgb(5, 5, 5);
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-  width: 95%;
-}
-.search button {
-  background-color: transparent;
-  cursor: pointer;
-}
-.search button img {
-  width: 25px;
-}
-::placeholder {
-  color: rgba(12, 12, 12, 0.793);
-}
-
-.featured .box-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.featured .box-container .box {
-  border: 0.1rem solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-  overflow: hidden;
-  background: rgb(25, 24, 24);
-  flex: 1 1 30rem;
-}
-
-.featured .box-container .box .image-container {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 25rem;
-}
-
-.featured .box-container .box .image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.2s linear;
-}
-
-.featured .box-container .box:hover .image-container img {
-  transform: scale(1.1);
-}
-
-.featured .box-container .box .image-container .info {
-  position: absolute;
-  top: 1rem;
-  left: 0;
-  display: flex;
-}
-
-.featured .box-container .box .image-container .info h3 {
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  margin-left: 1rem;
-}
-
-.featured .box-container .box .image-container .icons {
-  position: absolute;
-  bottom: 1rem;
-  right: 0;
-  display: flex;
-}
-
-.featured .box-container .box .image-container .icons a {
-  font-size: 1.4rem;
-  color: #fff;
-  display: flex;
-  border-radius: 0.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  margin-right: 1rem;
-  padding: 0.7rem;
-}
-
-.featured .box-container .box .image-container .icons a h3 {
-  font-weight: 500;
-  padding-left: 0.5rem;
-}
-
-.featured .box-container .box .image-container .icons a:hover {
-  background: var(--orange);
-  color: var(--light-orange);
-}
-
-.featured .box-container .box .content {
-  padding: 1.5rem;
-}
-
-.featured .box-container .box .content .price {
-  display: flex;
-  align-items: center;
-}
-
-.featured .box-container .box .content .price h3 {
-  color: var(--orange);
-  font-size: 2rem;
-  margin-right: auto;
-}
-
-.featured .box-container .box .content .price a {
-  color: var(--orange);
-  font-size: 1.5rem;
-  margin-right: 0.5rem;
-  border-radius: 0.5rem;
-  height: 4rem;
-  width: 4rem;
-  line-height: 4rem;
   text-align: center;
-  background: rgb(92, 91, 91);
+}
+.right h1 {
+  font-size: 24px;
 }
 
-.featured .box-container .box .content .price a:hover {
-  background: var(--orange);
-  color: var(--light-orange);
+.right .col {
+  margin: 1rem 0;
 }
 
-.featured .box-container .box .content .location {
-  padding: 1rem 0;
+form h1 {
+  text-align: center;
+  max-width: 768px;
+}
+.form-main {
+  max-width: 768px;
+  width: 100%;
 }
 
-.featured .box-container .box .content .location h3 {
-  font-size: 2.5rem;
-  color: #fff;
+.form-main .textbox {
+  padding: 10px 1rem;
 }
 
-.featured .box-container .box .content .location p {
-  font-size: 1.5rem;
-  color: rgb(151, 149, 149);
-  line-height: 1.5;
-  padding-top: 0.5rem;
+.form-main label {
+  font-size: 1rem;
+  display: block;
+  margin: 0 0 4px;
 }
 
-.featured .box-container .box .content .details {
-  padding: 0.5rem 0;
-  display: flex;
+.form-main input,
+.form-main select,
+.form-main textarea {
+  text-transform: none !important;
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  color: #363949;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-primary);
 }
 
-.featured .box-container .box .content .details h3 {
-  flex: 1;
-  padding: 1rem;
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
-  color: #fff;
-  font-size: 1.3rem;
-}
-
-.featured .box-container .box .content .details h3 i {
-  color: #fff;
-  padding-left: 0.5rem;
-}
-
-.featured .box-container .box .content .buttons {
-  display: flex;
-  gap: 1rem;
-}
-
-.featured .box-container .box .content .buttons .btn {
-  flex: 1;
-  font-size: 1.5rem;
-}
+/* ========= End of House Details ============= */
 
 .footer .footer-container {
   background: #fff;
@@ -352,6 +269,12 @@ header .icons #menu-bars {
 
 .footer .footer-container {
   margin-bottom: 8rem;
+}
+
+.price-container {
+  margin: 1rem 0;
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 /* media queries  */

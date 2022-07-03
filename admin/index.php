@@ -12,6 +12,10 @@
     $query2 = "SELECT COUNT(*) AS totalTenants FROM users";
     $result2 = mysqli_query($conn, $query2);
     $userArr = mysqli_fetch_array($result2);
+
+    $query3 = "SELECT COUNT(*) AS totalPayment FROM `booking`";
+    $res3 = mysqli_query($conn, $query3);
+    $paymentArr = mysqli_fetch_array($res3);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +33,9 @@
     <script src="./assets/js/export.js"></script>
     <link rel="stylesheet" href="./assets/css/admin.css">
     <link rel="stylesheet" href="./assets/css/dashboard.css">
+    <link rel="stylesheet" href="./assets/css/menu.css">
+
+
 </head>
 
 <body>
@@ -54,7 +61,7 @@
                                 <h3>Total Houses</h3>
                             </div>
                             <div class="view">
-                                <a href="./houses.php">
+                                <a href="./houses">
                                     <button>View List</button>
                                 </a>
                             </div>
@@ -71,7 +78,7 @@
                                 <h3>Total Tenants</h3>
                             </div>
                             <div class="view">
-                                <a href="./tenants.php">
+                                <a href="./tenants">
                                     <button>View List</button>
                                 </a>
                             </div>
@@ -84,11 +91,11 @@
 
                         <div class="middle">
                             <div class="left">
-                                <h2>2</h2>
+                                <h2> <?php echo $paymentArr['totalPayment']; ?></h2>
                                 <h3>Payments This Months</h3>
                             </div>
                             <div class="view">
-                                <a href="./payments.php">
+                                <a href="./payments">
                                     <button>View List</button>
                                 </a>
                             </div>
@@ -97,17 +104,6 @@
                 </div>
             </div>
         </main>
-        <div class="right">
-            <div class="top">
-                <button>
-                    <span class="martial-icons-sharp">menu</span>
-                </button>
-                <div class="theme-toggler">
-                    <span class="material-icons-sharp">light_mode</span>
-                    <span class="material-icons-sharp">dark_mode</span>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 

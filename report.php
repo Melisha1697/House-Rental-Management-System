@@ -32,7 +32,7 @@
                 <div class="container1">
                     <h1>Monthly Payment Details</h1>
                 </div>
-                <div class="container1">
+                <div class="container2">
                     <h1>Rental Payment Balance</h1>
                 </div>
             </div>

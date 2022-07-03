@@ -1,29 +1,19 @@
 <?php
-
     if(!isset($_COOKIE['username'])){
-        header("location:./login.php");
+        header("location:../../login.php");
     }
 
-    include './config/db_conn.php';
+    include '../../config/db_conn.php';
 
-    $username = $_COOKIE['username'];
-
-    $query1 = "SELECT * FROM users WHERE username = '$username'";
-    $result1 = mysqli_query($conn, $query1);
-    $res1= mysqli_fetch_assoc($result1);
-    $userID = $res1['user_id'];
-    
-    
-    $query = "SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id = booking.house_id WHERE user_id = '$userID' GROUP BY house_id";
+    $query = "SELECT booking.booking_id, houses.house_id, users.full_name, houses.title, houses.price, houses.city, booking.payment_date, booking.expiry_date FROM `houses` INNER JOIN booking ON houses.house_id = booking.house_id INNER JOIN users ON booking.user_id = users.user_id GROUP BY booking_id";
     $result= mysqli_query($conn, $query);
 
     if(isset($_POST['search'])){
         $title = $_POST['title'];
         
-        $query = "SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id = booking.house_id WHERE (`title` LIKE '%". $title. "%')";
-        $result= mysqli_query($conn, $query);
+        $query2 = "SELECT booking.booking_id, houses.house_id, users.full_name, houses.title, houses.price, houses.city, booking.payment_date, booking.expiry_date FROM `houses` INNER JOIN booking ON houses.house_id = booking.house_id INNER JOIN users ON booking.user_id = users.user_id WHERE (`title` LIKE '%". $title. "%')";
+        $result= mysqli_query($conn, $query2);
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,16 +26,17 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./assets/js/tableExport.min.js"></script>
+    <script src="../assets/js/tableExport.min.js"></script>
 
-    <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/user.css">
+    <script src="../assets/js/export.js"></script>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
 </head>
 
 <body>
     <?php //echo $_SESSION["username"]?>
     <div class="container">
-        <?php include './menu.php' ?>
+        <?php include '../menu.php' ?>
         <!------------------End of Aside----------------------->
         <main>
             <div class="container1">
@@ -59,28 +50,36 @@
                     </div>
                     <table cellpadding="12" cellspacing="8" id="dataTable" class="table table-striped">
                         <tr>
-                            <th>Id</th>
-                            <th>Title</th>
+                            <th>B. Id</th>
+                            <th>Name</th>
+                            <th>House</th>
                             <th>Price</th>
-                            <th>Address</th>
-                            <th>Area</th>
                             <th>City</th>
-                            <th>Action</th>
+                            <th>Booking</th>
+                            <th>Expiry</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         <?php
                             while($res = mysqli_fetch_array($result)){
                         ?>
                         <tr>
-                            <td><?php echo $res['house_id']; ?></td>
+                            <td><?php echo $res['booking_id']; ?></td>
+                            <td><?php echo $res['full_name']; ?></td>
                             <td><?php echo $res['title']; ?></td>
-                            <td>Rs <?php echo $res['price']; ?></td>
-                            <td><?php echo $res['address']; ?></td>
-                            <td><?php echo $res['sq_ft']; ?> sq.ft</td>
+                            <td>Rs. <?php echo $res['price']; ?></td>
                             <td><?php echo $res['city']; ?></td>
+                            <td><?php echo $res['payment_date']; ?></td>
+                            <td><?php echo $res['expiry_date']; ?></td>
 
                             <td>
-                                <a href="view.php?id=<?php echo $res['house_id']; ?>" class="edit">
+                                <a href="viewBooking.php?id=<?php echo $res['booking_id']; ?>" class="edit">
                                     <button>View</button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="deleteBooking.php?id=<?php echo $res['booking_id']; ?>" class="delete">
+                                    <button>Vacant</button>
                                 </a>
                             </td>
 

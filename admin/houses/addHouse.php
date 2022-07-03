@@ -1,28 +1,39 @@
 <?php
-include '../config/db_conn.php';
+if(!isset($_COOKIE['admin'])){
+    header("location:../../login.php");
+}
 
-if(isset($_POST['add'])){
+include '../../config/db_conn.php';
+
+if(isset($_POST['add']) && !empty($_FILES['house']['name'])){
+    $targetDir = "../uploads/";
+    $fileName = basename($_FILES["house"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+    $allowTypes = array('jpg','png','jpeg','gif');
+    
     $house_no= $_POST['house_no'];
     $title= $_POST['title'];
-     $zipcode= $_POST['zipcode'];
-     $sq_ft= $_POST['sq_ft'];
-     $address= $_POST['address'];
-     $city= $_POST['city'];
-     $state= $_POST['state'];
-     $image= "1";
-     $description = $_POST['description'];
-     $price = $_POST['price'];
-     $tenant = $_POST['tenant'];
-     $bedrooms = $_POST['bedrooms'];
-     $bathrooms = $_POST['bathrooms'];
+    $zipcode= $_POST['zipcode'];
+    $sq_ft= $_POST['sq_ft'];
+    $address= $_POST['address'];
+    $city= $_POST['city'];
+    $state= $_POST['state'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $bedrooms = $_POST['bedrooms'];
+    $bathrooms = $_POST['bathrooms'];
     $garage= $_POST['garage'];
 
-    $query = "INSERT INTO `houses`(`title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `tenant`, `garage`, `Image`) 
-    VALUES ('$title','$price','$address','$house_no', '$description', '$sq_ft','$bedrooms','$bathrooms','$city','$state','$zipcode','$tenant','$garage','$image')";
-
-    echo $query;
-    $result= mysqli_query($conn, $query);
-    header('location: houses.php');
+    if(move_uploaded_file($_FILES["house"]["tmp_name"], $targetFilePath)){
+        $query = "INSERT INTO `houses`(`title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name`) 
+        VALUES ('$title','$price','$address','$house_no', '$description', '$sq_ft','$bedrooms','$bathrooms','$city','$state','$zipcode', '$garage','$fileName')";
+    
+        echo $query;
+        $result= mysqli_query($conn, $query);
+        header('location: ./');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -36,18 +47,18 @@ if(isset($_POST['add'])){
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./assets/js/tableExport.min.js"></script>
+    <script src="../assets/js/tableExport.min.js"></script>
 
-    <script src="./assets/js/export.js"></script>
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <script src="../assets/js/export.js"></script>
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
 <body>
     <div class="container">
-        <?php include './menu.php' ?>
+        <?php include '../menu.php' ?>
         <!-- main -->
         <main class="form1">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <h1 class="">Add House Details</h1>
                 <div class="form-main">
 
@@ -99,22 +110,17 @@ if(isset($_POST['add'])){
                             <option value="Province-7">Province-7</option>
                         </select>
                     </div>
-                    <!-- <div class="textbox">
-                    <label for="image">Image</label>
-                    <input type="file" name="image">
-                </div> -->
                     <div class="textbox">
                         <label for="price">Price</label>
                         <input type="number" name="price" required>
                     </div>
-                    <div class="textbox">
-                        <label for="tenant">Tenant</label>
-                        <input type="text" name="tenant" required>
-                    </div>
                     <div class="textbox w-full">
                         <label for="description">Description</label>
-                        <textarea name="description" required>
-                        </textarea>
+                        <textarea name="description" required></textarea>
+                    </div>
+                    <div class="textbox w-full">
+                        <label for="house">Image</label>
+                        <input type="file" name="house">
                     </div>
                     <input type="submit" name="add" value="Submit" class="button w-full"></button>
                 </div>

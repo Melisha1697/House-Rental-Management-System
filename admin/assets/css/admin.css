@@ -22,6 +22,9 @@
 
   --box-shadow: 0 2rem 3rem var(--color-light);
 }
+
+@import url(./dark.css);
+
 * {
   margin: 0;
   padding: 0;
@@ -67,6 +70,8 @@ h1 {
   font-size: 1.8rem;
 }
 aside {
+  position: sticky;
+  top: 0;
   height: 100vh;
 }
 aside .top {
@@ -97,7 +102,7 @@ aside .close {
 aside .sidebar {
   display: flex;
   flex-direction: column;
-  height: 86vh;
+  height: 80vh;
   position: relative;
   top: 3rem;
 }
@@ -123,7 +128,7 @@ aside .sidebar a span {
 }
 aside .sidebar a:last-child {
   position: absolute;
-  bottom: 2rem;
+  bottom: 0.5rem;
   width: 100%;
 }
 aside .sidebar a.active {
@@ -151,14 +156,13 @@ aside .sidebar a:hover span {
   font-size: x-large;
 }
 
-
 /*==========================Main==================*/
 main {
   margin-top: 2rem;
 }
 main .container1 {
   border-radius: var(--border-radius-1);
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   background-color: var(--color-primary);
 }
 
@@ -222,7 +226,8 @@ form h1 {
   max-width: 768px;
 }
 .form-main {
-  max-width: 768px;
+  max-width: 600px;
+  margin: auto;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -231,6 +236,11 @@ form h1 {
 .form-main .textbox {
   padding: 10px 1rem;
   width: 50%;
+}
+
+.form-main.faq .textbox {
+  padding: 10px 1rem;
+  width: 100%;
 }
 
 .form-main label {
@@ -252,6 +262,7 @@ form h1 {
 
 .form-main textarea {
   resize: vertical;
+  min-height: 100px;
 }
 
 .form-main .button {
@@ -299,54 +310,3 @@ form h1 {
 .houseowner {
   margin: 10px;
 }
-.accordion {
-  width: 90%;
-  margin: 2rem auto;
-}
-.accordion-item {
-  background-color: #e7e36e5a;
-  color: #111;
-  margin: 1rem 0;
-  font-size: medium;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
-}
-.accordion-item-header {
-  padding: 1rem 3rem 1rem 1rem;
-  min-height: 3.5rem;
-  line-height: 1.25rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-}
-
-.accordion-item-header:after {
-  content: "\002B";
-  font-size: 2rem;
-  position: absolute;
-  right: 1rem;
-  transition: transform 0.2s ease-in-out;
-}
-.accordion-item-header.active::after {
-  content: "\2212";
-}
-
-.accordion-item-body {
-  height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-.accordion-item-body.active {
-  height: auto;
-}
-
-.accordion-item-body-content {
-  padding: 1rem;
-  line-height: 1.5rem;
-  border-top: 3px solid;
-  border-image: linear-gradient(to right, transparent, #2324248d, transparent) 1;
-}
-

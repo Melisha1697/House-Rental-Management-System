@@ -1,0 +1,23 @@
+body.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+body:not(.dark) {
+  background-color: #fff;
+  color: #000;
+}
+
+body.dark .heading {
+  color: #fff;
+}
+
+
+body.dark .footer-container {
+  background-color: #8f8f8f;
+  color: #fff;
+}
+
+body.dark .footer-container a {
+  color: #111 !important;
+}

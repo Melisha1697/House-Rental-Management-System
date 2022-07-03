@@ -50,13 +50,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="./assets/css/register.css">
     <title>Register Now</title>
 </head>
 
 <body>
     <header>
-        <a href="/meli" class="logo">AAFNO PAAN</a>
+        <a href="/real_estate_website" class="logo">AAFNO PAAN</a>
 
         <nav class="navbar">
             <a href="/real_estate_website#home">Home</a>
@@ -64,12 +65,24 @@
             <a href="/real_estate_website#featured">Featured</a>
             <a href="/real_estate_website#agents">Agents</a>
             <a href="/real_estate_website#contact">Contact</a>
-            <a href="help.php">Help</a>
+            <a href="faq.php">FAQ</a>
         </nav>
+        <div class="icons">
+            <div id="menu-bars" class="fas fa-bars"></div>
+            <div class="mode">
+                <input type="checkbox" class="checkbox" id="chk" />
+                <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
+        </div>
     </header>
     <div class="login-box">
-        <h1>Register</h1>
+
         <form action="register.php" method="post">
+            <h1>Register</h1>
             <div class="textbox">
                 <img src="./assets/img/user.png" style="width: 27px;">
                 <input type="text" name="full_name" placeholder="Full Name" required>
@@ -122,6 +135,13 @@
     </div>
     </form>
     </div>
+    <script>
+    const chk = document.getElementById('chk');
+
+    chk.addEventListener('change', () => {
+        document.body.classList.toggle('dark');
+    });
+    </script>
 </body>
 
 </html>

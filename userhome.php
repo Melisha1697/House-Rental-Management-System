@@ -5,9 +5,20 @@
 
     include './config/db_conn.php';
 
+    $username = $_COOKIE['username'];
+
     $query1 = "SELECT COUNT(*) AS totalHouse FROM houses";
     $result1 = mysqli_query($conn, $query1);
     $housesArr = mysqli_fetch_array($result1);
+
+    $query2 = "SELECT * FROM users WHERE username = '$username'";
+    $res2 = mysqli_query($conn, $query2);
+    $userArr = mysqli_fetch_array($res2);
+    $userID = $userArr['user_id'];
+
+    $query3 = "SELECT COUNT(*) AS totalPayment FROM `booking` WHERE user_id = '$userID'";
+    $res3 = mysqli_query($conn, $query3);
+    $paymentArr = mysqli_fetch_array($res3);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +78,7 @@
 
                         <div class="middle">
                             <div class="left">
-                                <h2>2</h2>
+                                <h2><?php echo $paymentArr['totalPayment']; ?></h2>
                                 <h3>Payments This Months</h3>
                             </div>
                             <div class="view">

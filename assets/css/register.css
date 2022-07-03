@@ -22,11 +22,41 @@ body {
   position: relative;
   height: 100vh;
   background: url("../img/register.png") no-repeat;
-  background-position: top 100% right 17%;
+  background-position: top 100% right 10%;
   width: 100%;
 }
 
+body.dark {
+  background: url("../img/register.png") no-repeat;
+  background-position: top 50% right 12%;
+  width: 100%;
+}
+
+body.dark header .navbar a{
+  color: #fff;
+}
+
+body.dark .login-box{
+  box-shadow: 0 0 10px 3px rgba(6, 5, 5, 0.15);
+}
+
+body.dark form h1
+{
+  color: #fff;
+}
+
+body.dark input::placeholder {
+  color: #fff;
+}
+
+
+body.dark .register span{
+  color: #fff;
+}
+
 header {
+  font-family: "Nunito", sans-serif;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -35,7 +65,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "Nunito", sans-serif;
 }
 
 header .logo {
@@ -53,23 +82,96 @@ header .navbar a {
 header .navbar a:hover {
   color: var(--color-primary);
 }
+header .icons #menu-bars,
+header .icons a {
+  height: 4.5rem;
+  line-height: 4.5rem;
+  width: 5rem;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+header .icons #menu-bars:hover,
+header .icons a:hover {
+  background-color: var(--orange);
+}
+
+header .icons #menu-bars {
+  display: none;
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+body.dark {
+  background-color: rgb(35, 35, 35);
+}
+.mode {
+  float: right;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.label {
+  background-color: rgb(18, 18, 18);
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  position: relative;
+  height: 22px;
+  width: 38px;
+  transform: scale(1.5);
+  font-size: xx-small;
+  border: 1px solid #fff;
+}
+
+.label .ball {
+  background-color: rgb(246, 246, 246);
+  border-radius: 50%;
+  position: absolute;
+  top: 2.8px;
+  left: 3px;
+  height: 14px;
+  width: 14px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(15px);
+}
+
+.fa-moon {
+  color: #f1c40f;
+}
+
+.fa-sun {
+  color: #f39c12;
+}
 
 .login-box {
-  margin-top: 100px;
-  width: 280px;
+  margin-top: 60px;
   position: absolute;
   top: 50%;
   left: 23%;
   transform: translate(-50%, -50%);
   color: rgb(18, 17, 17);
   border-radius: 4%;
-  width: 20%;
+  width: 40%;
   padding: 2%;
+  margin-left: 3%;
 }
 h1 {
   text-align: center;
-  font-size: 40px;
-  margin-bottom: 30px;
+  font-size: 35px;
+  margin-bottom: 10px;
 }
 img {
   width: 30px;
@@ -83,10 +185,9 @@ select {
   background: none;
 }
 .textbox {
-  width: 97.5%;
+  width: 100%;
   overflow: hidden;
   font-size: 20px;
-  padding: 3px;
   margin: 8px 0;
   border: 1px solid var(--color-primary);
   border-radius: 5px;
@@ -114,7 +215,6 @@ input::placeholder {
 }
 
 select {
-  background-color: #fff;
   appearance: none;
   border: 1px solid var(--color-primary);
   border-radius: 5px;
