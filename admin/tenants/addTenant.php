@@ -22,12 +22,15 @@ if(isset($_POST['add']) && !empty($_FILES['user']['name'])){
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $username = $_POST['username'];
+    $facebook = $_POST['facebook'];
+    $twitter = $_POST['twitter'];
+    $instagram = $_POST['instagram'];
 
     if($password != $confirm_password) {
         echo "<script>alert('Password not matched.')</script>";
     } else if(move_uploaded_file($_FILES["user"]["tmp_name"], $targetFilePath)){
-        $query = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`, `user_img`) 
-        VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password','$username', '$fileName')";
+        $query = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`, `user_img`, 'facebook', 'twitter', 'instagram') 
+        VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password','$username', '$fileName' , '$facebook', '$twitter', '$instagram')";
         
         $result= mysqli_query($conn, $query);
         header('location: ./');
@@ -50,6 +53,7 @@ if(isset($_POST['add']) && !empty($_FILES['user']['name'])){
 
     <script src="../assets/js/export.js"></script>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
 </head>
 
 <body>
@@ -99,7 +103,19 @@ if(isset($_POST['add']) && !empty($_FILES['user']['name'])){
                         <label for="confirm_password">Confirm Password</label>
                         <input type="password" name="confirm_password">
                     </div>
-                    <div class="textbox w-full">
+                    <div class="textbox">
+                        <label for="facebook">Facebook</label>
+                        <input type="text" name="facebook">
+                    </div>
+                    <div class="textbox">
+                        <label for="twitter">Twitter</label>
+                        <input type="text" name="twitter">
+                    </div>
+                    <div class="textbox">
+                        <label for="instagram">Instagram</label>
+                        <input type="text" name="instagram">
+                    </div>
+                    <div class=" textbox w-full">
                         <label for="user">Image</label>
                         <input type="file" name="user">
                     </div>

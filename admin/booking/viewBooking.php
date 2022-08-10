@@ -27,13 +27,14 @@ $res= mysqli_fetch_assoc($result);
 
     <script src="../assets/js/export.js"></script>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
     <link rel="stylesheet" href="../assets/css/view.css">
+
 </head>
 
 <body>
     <div class="container">
         <?php include '../menu.php' ?>
-
         <section class="house-details-container">
             <div class="left">
                 <div class="image-container">
@@ -43,7 +44,7 @@ $res= mysqli_fetch_assoc($result);
                     <img src="<?php echo $imageURL; ?>" alt="<?php echo $res['title'] ?>" />
                 </div>
             </div>
-            <div class="right">
+            <div class="right" style="padding:30px 0px 20px 30px">
                 <h1>
                     <?php echo $res['title']; ?> (<?php echo $res['house_no']; ?>)
                 </h1>

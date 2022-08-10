@@ -11,7 +11,7 @@
     $result = mysqli_query($conn, $query);
     $res= mysqli_fetch_assoc($result);
 
-    if(isset($_POST['update']) && !empty($_FILES['user']['name'])){
+    if(isset($_POST['update'])){
         $targetDir = "../uploads/users/";
         $fileName = basename($_FILES["user"]["name"]);
         $targetFilePath = $targetDir . $fileName;
@@ -25,14 +25,30 @@
         $usertype = 'Tenants';
         $phone = $_POST['phone'];
         $username = $_POST['username'];
-
+        $facebook = $_POST['facebook'];
+        $twitter = $_POST['twitter'];
+        $instagram = $_POST['instagram'];
+        
+        
+        if (!empty($_FILES['user']['name'])){
+            $targetDir = "../uploads/";
+            $fileName = basename($_FILES["user"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            
+            $allowTypes = array('jpg','png','jpeg','gif');
+        
         if(move_uploaded_file($_FILES["user"]["tmp_name"], $targetFilePath)){
-            $sql = "UPDATE `users` SET `full_name`='$full_name',`email`='$email',`citizenship`='$citizenship',`address`='$address',`dob`='$dob',`usertype`='$usertype',`phone`='$phone',`username`='$username', `user_img` = '$fileName' WHERE `user_id` = '$id' AND usertype = 'Tenants'";
+            $sql = "UPDATE `users` SET `full_name`='$full_name',`email`='$email',`citizenship`='$citizenship',`address`='$address',`dob`='$dob',`usertype`='$usertype',`phone`='$phone',`username`='$username', `user_img` = '$fileName', `facebook` = '$facebook', `twitter` = '$twitter', `instagram` = '$instagram' WHERE `user_id` = '$id' AND usertype = 'Tenants'";
             
             $result2 = mysqli_query($conn, $sql);
-            header('location: ./');
+        } 
+        }else{
+            $sql = "UPDATE `users` SET `full_name`='$full_name',`email`='$email',`citizenship`='$citizenship',`address`='$address',`dob`='$dob',`usertype`='$usertype',`phone`='$phone',`username`='$username', `facebook` = '$facebook', `twitter` = '$twitter', `instagram` = '$instagram' WHERE `user_id` = '$id' AND usertype = 'Tenants'";
+            
+            $result2 = mysqli_query($conn, $sql);
         }
-
+        header('location: ./');
     }
 ?>
 <!DOCTYPE html>
@@ -50,6 +66,7 @@
 
     <script src="../assets/js/export.js"></script>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
 </head>
 
 <body>
@@ -88,6 +105,18 @@
                     <div class="textbox">
                         <label for="phone">Contact No.</label>
                         <input type="tel" value="<?php echo $res['phone'] ?>" name="phone">
+                    </div>
+                    <div class="textbox">
+                        <label for="facebook">Facebook</label>
+                        <input type="text" value="<?php echo $res['facebook'] ?>" name="facebook">
+                    </div>
+                    <div class="textbox">
+                        <label for="twitter">Twitter</label>
+                        <input type="text" value="<?php echo $res['twitter'] ?>" name="twitter">
+                    </div>
+                    <div class="textbox">
+                        <label for="instagram">Instagram</label>
+                        <input type="text" value="<?php echo $res['instagram'] ?>" name="instagram">
                     </div>
                     <br>
                     <div style="margin: 1rem;">

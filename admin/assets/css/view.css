@@ -4,6 +4,13 @@
 .house-details-container {
   display: flex;
   flex-wrap: wrap;
+  background-color: rgb(236, 218, 177);
+  height: 90%;
+  padding-top: 20px;
+  padding: 20px;
+  margin-top: 50px;
+  margin-left: 10px;
+  border-radius: 0.4rem;
 }
 
 .house-details-container .left,
@@ -24,6 +31,13 @@
   object-fit: cover;
   box-shadow: 5px 5px 1rem 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+}
+
+.right{
+  background-color: #fff;
+  height: 85%;
+  margin-top: 15px;
+  border-radius: 0.5rem;
 }
 
 .right h1 {

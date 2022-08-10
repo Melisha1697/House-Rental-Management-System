@@ -3,7 +3,7 @@ body.dark {
 }
 
 body.dark aside {
-  background-color: rgb(8, 16, 8);
+  background-color: rgb(8, 8, 8);
 }
 
 body.dark #logo-text h2 {
@@ -19,11 +19,19 @@ body.dark aside .sidebar a {
 }
  body.dark .container{
   margin: 0;
-
  }
  body.dark aside .sidebar{
   margin-left: 0.3rem;
  }
+
+body.dark .faq1{
+  color: #fff;
+}
+
+body.dark .tenants{
+color: #fff;
+}
+
 aside .sidebar a.active {
   color: var(--color-primary) !important;
 }
@@ -42,7 +50,7 @@ aside .sidebar a.active {
   align-items: center;
   justify-content: space-between;
   padding: 6px;
-  margin-right: 10px;
+  margin-right: 40px;
   position: relative;
   height: 22px;
   width: 38px;

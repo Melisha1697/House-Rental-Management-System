@@ -37,7 +37,7 @@
         <?php include './menu.php' ?>
         <!------------------End of Aside----------------------->
         <main>
-            <h1>FAQ</h1>
+            <h1 class="faq1" style="margin-left: 9px;">FAQ</h1>
             <div class="tenants">
                 <h2> Tenants / Renters</h2>
             </div>

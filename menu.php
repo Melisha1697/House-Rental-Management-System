@@ -7,10 +7,10 @@
         <div class="logo">
             <img src="./assets/img/logo.png" alt="">
             <a href="./index.php" id="logo-text">
-                <h2 class="text-muted">AAFNO-PAAN</h2>
+                <h2 class="text-muted" style="color: #222;">AAFNO-PAAN</h2>
             </a>
         </div>
-        <div class="close" id="close-tab">
+        <div class=" close" id="close-tab">
             <span class="material-symbols-sharp">close</span>
         </div>
     </div>

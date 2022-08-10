@@ -7,10 +7,10 @@
         <a href="/real_estate_website">
             <div class="logo">
                 <img src="/real_estate_website/admin/assets/img/logo.png" alt="AAFNO-PAAN">
-                <h2 class="text-muted">AAFNO-PAAN</h2>
+                <h2 class="text-muted" style="color:#222;">AAFNO-PAAN</h2>
             </div>
         </a>
-        <div class="close" id="close-tab">
+        <div class=" close" id="close-tab">
             <span class="material-symbols-sharp">close</span>
         </div>
     </div>

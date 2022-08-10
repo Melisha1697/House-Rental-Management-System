@@ -27,8 +27,7 @@ body {
 }
 
 body.dark {
-  background: url("../img/register.png") no-repeat;
-  background-position: top 50% right 12%;
+  background: none;
   width: 100%;
 }
 
@@ -36,8 +35,24 @@ body.dark header .navbar a{
   color: #fff;
 }
 
+body.dark header {
+  font-family: "Nunito", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 9%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(4, 4, 4);
+}
+
 body.dark .login-box{
-  box-shadow: 0 0 10px 3px rgba(6, 5, 5, 0.15);
+  background-color: rgb(4, 4, 4);
+  box-shadow: 0 0 10px 3px rgba(202, 202, 202, 0.212);
+  margin-left: 410px;
 }
 
 body.dark .login-box h1{

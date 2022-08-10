@@ -3,15 +3,20 @@
   align-items: center;
   justify-content: space-between;
 }
-  button{
-    margin-right: 75px;
-  }
+
+.faq1{
+  margin-left: 10px;
+}
+
 .accordion {
-  width: 90%;
-  margin: 2rem auto;
+  width: 100%;
+  margin-top: 2rem;
+  background-color:   rgb(247, 203, 82) ;
+  border-radius: var(--border-radius-1);
+  padding: 40px;
 }
 .accordion-item {
-  background-color: #e7e36e5a;
+  background-color: rgb(246, 237, 212);;
   color: #111;
   margin: 1rem 0;
   font-size: medium;

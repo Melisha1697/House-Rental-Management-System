@@ -65,6 +65,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #333;
 }
 
 header .logo {
@@ -74,7 +75,7 @@ header .logo {
 }
 
 header .navbar a {
-  color: rgb(16, 16, 16);
+  color: #fff;
   font-size: 1.2rem;
   padding: 0 1rem;
 }
@@ -158,10 +159,10 @@ body.dark {
 
 .login-box {
   margin-top: 60px;
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 23%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   color: rgb(18, 17, 17);
   border-radius: 4%;
   width: 40%;

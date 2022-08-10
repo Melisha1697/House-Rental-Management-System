@@ -88,7 +88,7 @@
                                 if($outstanding_amt == 0) {
                                     echo "<button>Paid</button>";
                                 } elseif($total_price > $total_paid) {
-                                    echo  "<a href='checkout.php?id=$ID' class='edit'>
+                                    echo  "<a href='outstandingchkout.php?id=$ID' class='edit'>
                                     <button>
                                     Pay Now
                                     </button>

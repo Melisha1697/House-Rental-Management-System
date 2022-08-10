@@ -45,7 +45,7 @@ include('./config/db_conn.php');
 
         <div class="icons">
             <div id="menu-bars" class="fas fa-bars"></div>
-            <a class="fas fa-search" id="searchPopup"></a>
+            <!--- <a class="fas fa-search" id="searchPopup"></a>
             <div class=" popup" id="popup">
                 <i class="fa-solid fa-circle-xmark" style="color: #333;" onclick="closePopup()"></i>
                 <form action=" search.php" method="POST" class="search">
@@ -55,7 +55,7 @@ include('./config/db_conn.php');
                     </button>
                 </form>
                 <button type="button" class="cancel" onclick="closePopup()">Cancel</button>
-            </div>
+        </div>--->
             <a href=" login.php" class="fas fa-user" title="Login Here!"></a>
             <a href="register.php" class="fas fa-sign-in-alt" title="Register From Here!!"></a>
             <div class="mode">
@@ -78,11 +78,11 @@ include('./config/db_conn.php');
             <div class="inner-text">
                 <h1>House-Apartments for Rent</h1>
                 <p>
-                    Search In AAFNO-PAAN for house, apartments by <br />
+                    Search In AAFNO-PAAN for house by <br />
                     neighborhood, price, amenity, and more.
                 </p>
                 <a href="search.php">
-                    Search For House-Apartments <i class="fas fa-arrow-right"></i>
+                    Search For House-To-Rent <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </section>
@@ -93,40 +93,45 @@ include('./config/db_conn.php');
     <!-- services section starts  -->
 
     <section class="services" id="services">
-        <h1 class="heading">our <span>services</span></h1>
+        <h1 class="heading">our <span>Features</span></h1>
 
         <div class="box-container">
             <div class="box">
                 <img src="./assets/images/s-1.png" alt="" />
-                <h3>buying home</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-                    distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem
-                    officiis?
+                <h3>Safety & security</h3>
+                <p style="text-align: justify; padding: 10px; text-transform: none;">
+                    Every tenant searches for a place that's safe. Being safe and secure is something of utmost
+                    importance for the tenants. This feature might seem like a simple point but it's very powerful and
+                    can influence the decision of the tenant at any point in time. Most of the tenants spend a large
+                    portion of their money to lease a home instead of an apartment because they along with their
+                    families want to live in a safe environment.
                 </p>
-                <a href="#" class="btn">learn more</a>
+                <!--<a href="#" class="btn">learn more</a>-->
             </div>
 
             <div class="box">
                 <img src="./assets/images/s-2.png" alt="" />
-                <h3>renting home</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-                    distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem
-                    officiis?
+                <h3>Quality of Neighbourhood</h3>
+                <p style="text-align: justify; padding: 10px; text-transform: none;">
+                    The quality of a neighborhood draws a crystal clear picture of what the neighborhood is all about.
+                    Another factor that's very vital is the neighborhood amenities available at the spot. Listen up my
+                    friend; you should always go for quality over quantity.Tenant is looking for is a place that feels
+                    like home.So make it a point to see to the fact that the
+                    neighborhood in which your rental property is good in
+                    all aspects.
                 </p>
-                <a href="#" class="btn">learn more</a>
             </div>
 
             <div class="box">
                 <img src="./assets/images/s-3.png" alt="" />
-                <h3>selling home</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-                    distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem
-                    officiis?
+                <h3>Ready To move</h3>
+                <p style="text-align: justify; padding: 10px; text-transform: none;">
+                    A great tenant will have great expectations and will expect the property to be top-notch. If the
+                    property needs a little bit of furnishing of some sort like painting, flooring, cleaning and a
+                    tenant is fine with it and is ready to give you time to make it lavish, then you can't have high
+                    hopes from that type of tenant.If you present your property in the best way possible, then there are
+                    higher chances of the tenant being impressed with your level of standards.
                 </p>
-                <a href="#" class="btn">learn more</a>
             </div>
         </div>
     </section>
@@ -149,7 +154,7 @@ include('./config/db_conn.php');
                  if($res2['totalbooking']==0){
                     $house=  $conn->query("SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` LIMIT 6");
                  }else{
-                    $house = $conn->query("SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id != booking.house_id LIMIT 6");
+                    $house = $conn->query("SELECT house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` WHERE house_id NOT IN (Select house_id FROM booking) LIMIT 6");
                  }
             
      
@@ -168,10 +173,7 @@ include('./config/db_conn.php');
                 </div>
                 <div class="content">
                     <div class="price">
-                        <h3><?php echo number_format($row['price'],2) ?></h3>
-                        <a href="#" class="fas fa-heart"></a>
-                        <a href="#" class="fas fa-envelope"></a>
-                        <a href="#" class="fas fa-phone"></a>
+                        <h3><?php echo number_format($row['price'],2) ?> / Month</h3>
                     </div>
                     <div class="location">
                         <h3><?php echo $row['title'] ?></h3>
@@ -218,10 +220,9 @@ include('./config/db_conn.php');
                 <h3>".$row['full_name']."</h3>
                 <span>".$row['usertype']."</span>
                 <div class='share'>
-                    <a href='#' class='fab fa-facebook-f'></a>
-                    <a href='#' class='fab fa-twitter'></a>
-                    <a href='#' class='fab fa-instagram'></a>
-                    <a href='#' class='fab fa-linkedin'></a>
+                    <a href=".$row['facebook']." target='_blank' class='fab fa-facebook-f'></a>
+                    <a href=".$row['twitter']." target='_blank' class='fab fa-twitter'></a>
+                    <a href=".$row['instagram']." target='_blank' class='fab fa-instagram'></a>
                 </div>
             </div>";
             }
@@ -249,14 +250,14 @@ include('./config/db_conn.php');
             <div class="icons">
                 <img src="./assets/images/icon-2.png" alt="" />
                 <h3>email address</h3>
-                <p>shaikhanas@gmail.com</p>
-                <p>anasshaikha@gmail.com</p>
+                <p>shakyaahana@gmail.com</p>
+                <p>ramadhikari@gmail.com</p>
             </div>
 
             <div class="icons">
                 <img src="./assets/images/icon-3.png" alt="" />
                 <h3>office address</h3>
-                <p>jogeshwari, mumbai, india - 400104</p>
+                <p>okhubahal, lalitpur, nepal - 400104</p>
             </div>
         </div>
 

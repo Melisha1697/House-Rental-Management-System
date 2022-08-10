@@ -11,20 +11,22 @@ body.dark aside {
 body.dark aside .sidebar a {
   color: #fff;
 }
- body.dark .container{
+body.dark .container {
   margin: 0;
-
- }
- body.dark aside .sidebar{
+}
+body.dark aside .sidebar {
   margin-left: 0.3rem;
- }
+}
 
+body.dark .faq1{
+  color: #fff;
+}
 
 aside .sidebar a.active {
   color: var(--color-primary) !important;
 }
 
-.mode {
+ .mode {
   position: fixed;
   top: 0;
   right: 2rem;

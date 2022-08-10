@@ -16,7 +16,7 @@
     
     $query = "SELECT houses.house_id, `title`, `price`, `address`, `house_no`, `description`, `sq_ft`, `bedrooms`, `bathrooms`, `city`, `state`, `zipcode`, `garage`, `file_name` FROM `houses` INNER JOIN booking ON houses.house_id = booking.house_id WHERE user_id = '$userID' GROUP BY house_id";
     $result= mysqli_query($conn, $query);
-
+    
     if(isset($_POST['search'])){
         $title = $_POST['title'];
         

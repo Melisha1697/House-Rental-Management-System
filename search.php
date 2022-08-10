@@ -5,13 +5,13 @@
 
     include './config/db_conn.php';
 
-    $query = "SELECT * FROM houses INNER JOIN booking ON houses.id != booking.house_id";
+    $query = "SELECT * FROM houses WHERE house_id NOT IN (SELECT house_id FROM booking)";
     $result= mysqli_query($conn, $query);
 
     if(isset($_POST['search'])){
         $title = $_POST['title'];
         
-        $query = "SELECT * FROM houses INNER JOIN booking ON houses.id != booking.house_id WHERE (`title` LIKE '%". $title. "%')";
+        $query = "SELECT * FROM houses WHERE house_id NOT IN (SELECT house_id FROM booking) AND (`title` LIKE '%". $title. "%')";
         $result= mysqli_query($conn, $query);
         
     }
@@ -32,6 +32,7 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="./assets/css/search.css" />
+    <link rel="stylesheet" href="./assets/css/dark.css">
 </head>
 
 <body>
@@ -52,6 +53,17 @@
             <div id="menu-bars" class="fas fa-bars"></div>
             <a href="login.php" class="fas fa-user" title="Login Here!"></a>
             <a href="register.php" class="fas fa-sign-in-alt" title="Register From Here!!"></a>
+        </div>
+        <div class="icons">
+            <div id="menu-bars" class="fas fa-bars"></div>
+            <div class="mode">
+                <input type="checkbox" class="checkbox" id="chk" />
+                <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
         </div>
     </header>
 
@@ -83,9 +95,6 @@
                 <div class="content">
                     <div class="price">
                         <h3><?php echo number_format($res['price'],2) ?></h3>
-                        <a href="#" class="fas fa-heart"></a>
-                        <a href="#" class="fas fa-envelope"></a>
-                        <a href="#" class="fas fa-phone"></a>
                     </div>
                     <div class="location">
                         <h3><?php echo $res['title'] ?></h3>
@@ -98,7 +107,7 @@
                         <h3><i class="fas fa-car"></i> <?php echo $res['garage'] ?> garage</h3>
                     </div>
                     <div class="buttons">
-                        <a href="view.php?id=<?php echo $res['id']; ?>" class="btn">view details</a>
+                        <a href="view.php?id=<?php echo $res['house_id']; ?>" class="btn">view details</a>
                     </div>
                 </div>
             </div>
@@ -151,6 +160,13 @@
             </div>
         </div>
     </section>
+    <script>
+    const chk = document.getElementById('chk');
+
+    chk.addEventListener('change', () => {
+        document.body.classList.toggle('dark');
+    });
+    </script>
     <script>
     let popup = document.getElementById("popup");
 

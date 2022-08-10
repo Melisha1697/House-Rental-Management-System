@@ -1,38 +1,48 @@
-<?php include('./config/db_conn.php');
-  error_reporting(0);
-  if(isset($_POST['register'])){
-    $full_name = $_POST['full_name'];
-    $email = $_POST['email'];
-    $citizenship = $_POST['citizenship'];
-    $address = $_POST['address'];
-    $dob = $_POST['dob'];
-    $usertype= $_POST['usertype'];
-    $phone= $_POST['phone'];
+<?php 
+include('./config/db_conn.php');
+
+
+  if(isset($_POST['register']) && !empty($_FILES['user']['name'])){
+    
     $password= $_POST['password'];
     $cpassword= $_POST['cpassword'];
-    $username= $_POST['username'];
+    $email = $_POST['email'];
+    $targetDir = "./admin/uploads/users";
+    $fileName = basename($_FILES["user"]["name"]);//file name sent by users is saved in basename
+    $targetFilePath = $targetDir . $fileName;//the path of where the user has stored the image 
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);//kun file type ho vanera chinna 
+    $allowTypes = array('jpg','png','jpeg','gif');//ani kasto file lai chai allow garena
+
+
+    $full_name= $_POST['full_name'];
+    $citizenship= $_POST['citizenship'];
+    $address = $_POST['address'];
+    $dob = $_POST['dob'];
+    $usertype = 'Tenants';
+    $phone = $_POST['phone'];
+    $username = $_POST['username'];
+    $facebook = $_POST['facebook'];
+    $twitter = $_POST['twitter'];
+    $instagram = $_POST['instagram'];
 
 
     if($password == $cpassword){
-        $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+        $sql = "SELECT * FROM `users` WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($conn, $sql);
 
-        
         if(!$result->num_rows>0){
-            // Insert image content into database 
-            $sql = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`) 
-            VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password', '$username')";
+            if(move_uploaded_file($_FILES["house"]["tmp_name"], $targetFilePath)){//targeted file lai chai 
+                $sql = "INSERT INTO `users`(`full_name`, `email`, `citizenship`, `address`, `dob`, `usertype`, `phone`, `password`, `username`, `user_img`, `facebook`, `twitter`, `instagram`) 
+            VALUES ('$full_name','$email','$citizenship','$address','$dob','$usertype','$phone','$password','$username', '$fileName' , '$facebook', '$twitter', '$instagram')";
             
             $result = mysqli_query($conn, $sql);
             
             if($result){
-              echo"<script>alert('Successfully Registered')</script>";
-              $username = "";
-              $email = "";
-              $_POST['password'] = "";
-              $_POST['cpassword'] = "";
-            } else {
-              echo"<script>alert('Woops! Something wrong')</script>";
+                echo"<script>alert('Successfully Registered')</script>";
+                header('location: ./login.php');
+              } else {
+                echo"<script>alert('Woops! Something wrong')</script>";
+              }
             }
         } else{
           echo"<script>alert('Woops! Email Already Exists')</script>";
@@ -81,7 +91,7 @@
     </header>
     <div class="login-box">
 
-        <form action="register.php" method="post">
+        <form enctype="multipart/form-data" action="" method="post">
             <h1>Register</h1>
             <div class="textbox">
                 <img src="./assets/img/user.png" style="width: 27px;">
@@ -93,7 +103,7 @@
             </div>
             <div class="textbox">
                 <img src="./assets/img/email.png">
-                <input type="email" name="email" value="<?php echo $email; ?>" placeholder="Email" required>
+                <input type="email" name="email" placeholder=" Email" required>
             </div>
             <div class="textbox">
                 <img src="./assets/img/citizenship.png">
@@ -107,25 +117,33 @@
                 <img src="./assets/img/date.png">
                 <input type="text" name="dob" min="10" placeholder="Date of birth" required>
             </div>
-            <select name="usertype">
-                <option value="" style="color: grey;">-Select-</option>
-                <option value="Landlord">Landlord</option>
-                <option value="Renter">Renter</option>
-                <option value="Licensed Agent">Licensed Agent</option>
-            </select>
             <div class="textbox">
                 <img src="./assets/img/phone.png">
                 <input type="number" name="phone" placeholder="Phone" required>
             </div>
             <div class="textbox">
                 <img src="./assets/img/lock.png">
-                <input type="password" name="password" value="<?php echo $_POST['password']; ?>" placeholder="Password"
-                    required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="textbox">
                 <img src="./assets/img/lock.png">
-                <input type="password" name="cpassword" value="<?php echo $_POST['cpassword']; ?>"
-                    placeholder="Confirm Password" required>
+                <input type="password" name="cpassword" placeholder="Confirm Password" required>
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/phone.png">
+                <input type="text" name="facebook" placeholder="Facebook">
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/phone.png">
+                <input type="text" name="twitter" placeholder="Twitter">
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/phone.png">
+                <input type="text" name="instagram" placeholder="Instagram">
+            </div>
+            <div class="textbox">
+                <img src="./assets/img/phone.png">
+                <input type="file" name="user">
             </div>
 
             <input type="submit" value="Register" name="register" class="register-btn">
@@ -143,5 +161,7 @@
     });
     </script>
 </body>
+
+</html>
 
 </html>

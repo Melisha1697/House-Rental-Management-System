@@ -5,6 +5,20 @@
     
     $result = mysqli_query($conn, $query);
     $res= mysqli_fetch_assoc($result);
+    
+    $username = $_COOKIE['username'];
+
+    $query1 = "SELECT * FROM users WHERE username = '$username'";
+    $result1 = mysqli_query($conn, $query1);
+    $res1= mysqli_fetch_assoc($result1);
+    $userID = $res1['user_id'];
+    
+    $query2 = "SELECT COUNT(*) AS totalbooking FROM booking WHERE user_id = '$userID'";
+    $result2 = mysqli_query($conn, $query2);
+    
+    $res2= mysqli_fetch_assoc($result2);
+    
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,16 +88,25 @@
                     <h3>City: <span><?php echo $res['city']; ?></span></h3>
                     <h3>State: <span><?php echo $res['state']; ?></span></h3>
                 </div>
+                <div class="row">
+                    <h3>Contact us: <a href="tel:+9779849496234">+977 9849496234</a></h3>
+                </div>
                 <div class="description">
                     <h3>Description: </h3>
                     <p><?php echo $res['description']; ?></p>
                 </div>
             </div>
             <div>
+                <?php
+                if($res2['totalbooking']>0){
+                    echo '<button class="w-full btn" disable="true">You  have already booked another house</button>';
+                }else{
+                    echo "<a href='checkout.php?id=". $res['house_id']."'>
+                <button class='btn w-full'>Book Now</button>
+                </a>";
+                }
+                ?>
 
-                <a href="checkout.php?id=<?php echo $res['house_id'] ?>">
-                    <button class="btn w-full">Book Now</button>
-                </a>
             </div>
         </div>
     </section>

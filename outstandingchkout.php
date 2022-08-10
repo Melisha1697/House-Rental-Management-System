@@ -14,9 +14,13 @@
     $houseID  = $res['house_id'];
     $houseAmount = $res['price'];
 
+    // Booking
+    $query2 = "Select * from booking where house_id = '$id'";
+    $result2 = mysqli_query($conn, $query2);
+    $bookingResult = mysqli_fetch_assoc($result2);
 
     // user
-    $userQuery = "SELECT * FROM `users` WHERE username = '$username'";
+    $userQuery = "SELECT * FROM users WHERE username = '$username'";
     $userResult = mysqli_query($conn, $userQuery);
     $userRes = mysqli_fetch_assoc($userResult);
     $userID = $userRes['user_id'];
@@ -26,20 +30,27 @@
         $email = $userRes['email'];
         $phone = $userRes['phone'];
         $credit_card = $_POST['credit_card'];
-        $totalPrice = $res['price'];
-        $total_paid = $_POST['total_paid'];
 
-        $outstanding_amt = (int)$totalPrice - (int)$total_paid;
+        $outstandingAmt = $bookingResult['outstanding_amt'];
+
+        $total_paid = $bookingResult['total_paid'] + $_POST['total_paid'];
+        
+        $outstanding_amt = (int)$outstandingAmt - (int)$_POST['total_paid'];
+
+        if($outstanding_amt <= 0) {
+            $total_paid = $res['price'];
+            $outstanding_amt = 0;   
+        }
 
         $dt = date('Y-m-d');
         $expiry_date = date('Y-m-d', strtotime($dt. ' + 1 months'));
     
-        $query = "INSERT INTO `booking`(`user_id`, `house_id`, `email`, `phone`, `credit_card`, `expiry_date`, `total_price`, `total_paid`, `outstanding_amt`) VALUES ('$userID','$houseID','$email','$phone','$credit_card', '$expiry_date', '$totalPrice','$total_paid','$outstanding_amt')";
-    
-        echo $query;
-        $result= mysqli_query($conn, $query);
+        $updateQuery = "UPDATE booking SET total_paid = '$total_paid', outstanding_amt = '$outstanding_amt'";
+
+        $result= mysqli_query($conn, $updateQuery);
         header('location: userhome.php');
         
+
     }
 ?>
 <!DOCTYPE html>
@@ -103,7 +114,7 @@
                 <h1 class="">Payment Details</h1>
                 <div class="price-container">
                     <div class="row">
-                        <h3>Your total payable price: Rs. <?php echo $res['price']; ?></h3>
+                        <h3>Your total payable price: Rs. <?php echo $bookingResult['outstanding_amt'] ?></h3>
 
                     </div>
                 </div>
@@ -114,7 +125,8 @@
                     </div>
                     <div class="textbox">
                         <label for="total_paid">Payment Amount</label>
-                        <input type="number" min="0" max="<?php echo $res['price'] ?>" name="total_paid" required>
+                        <input type="number" min="0" max="<?php echo $bookingResult['outstanding_amt'] ?>"
+                            name="total_paid" required>
                     </div>
 
                     <div class="textbox">

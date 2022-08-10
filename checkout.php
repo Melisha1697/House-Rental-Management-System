@@ -33,14 +33,28 @@
 
         $dt = date('Y-m-d');
         $expiry_date = date('Y-m-d', strtotime($dt. ' + 1 months'));
-    
-        $query = "INSERT INTO `booking`(`user_id`, `house_id`, `email`, `phone`, `credit_card`, `expiry_date`, `total_price`, `total_paid`, `outstanding_amt`) VALUES ('$userID','$houseID','$email','$phone','$credit_card', '$expiry_date', '$totalPrice','$total_paid','$outstanding_amt')";
-    
-        echo $query;
-        $result= mysqli_query($conn, $query);
-        header('location: userhome.php');
-        
-    }
+        //user can"t book more then one house
+        $q ="Select COUNT(*) AS bookingCOUNT FROM booking WHERE user_id = $userID";
+        $result2 = mysqli_query($conn, $q);
+        $userRes2 = mysqli_fetch_assoc($result2);
+        if($userRes2['bookingCOUNT'] > 0){
+            echo "<script>
+window.location.href = 'http://localhost/real_estate_website/userhome.php';
+</script>";
+}
+else{
+$query = "INSERT INTO `booking`(`user_id`, `house_id`, `email`, `phone`, `credit_card`, `expiry_date`, `total_price`,
+`total_paid`, `outstanding_amt`) VALUES ('$userID','$houseID','$email','$phone','$credit_card', '$expiry_date',
+'$totalPrice','$total_paid','$outstanding_amt')";
+
+echo $query;
+$result= mysqli_query($conn, $query);
+header('location: userhome.php');
+}
+
+
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +71,20 @@
 
     <script src="./assets/js/export.js"></script>
     <link rel="stylesheet" href="./assets/css/checkout.css">
+    <script>
+    function validation() {
+        var creditElemVal = document.getElementById('credit').value;
+        var creditCardRegex =
+            /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+        var creditResult = creditCardRegex.test(creditElemVal);
+        if (creditResult) {
+            return true;
+        } else {
+            alert('Invalid Credit Card');
+            return false;
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -99,9 +127,9 @@
         <div>
         </div>
         <div class="right">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form onsubmit="return validation()" action="" method="POST" enctype="multipart/form-data">
                 <h1 class="">Payment Details</h1>
-                <div class="price-container">
+                <div class=" price-container">
                     <div class="row">
                         <h3>Your total payable price: Rs. <?php echo $res['price']; ?></h3>
 
@@ -110,7 +138,7 @@
                 <div class="form-main">
                     <div class="textbox">
                         <label for="credit_card">Credit Card</label>
-                        <input type="number" name="credit_card" required>
+                        <input id="credit" type=" number" name="credit_card" required>
                     </div>
                     <div class="textbox">
                         <label for="total_paid">Payment Amount</label>

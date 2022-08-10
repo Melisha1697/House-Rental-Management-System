@@ -39,12 +39,11 @@
         <!------------------End of Aside----------------------->
         <main>
             <div class="faq-title">
-                <div class="tenants">
+                <div class="faq1">
                     <h1>FAQ</h1>
-                    <h2> Tenants / Renters</h2>
                 </div>
                 <a href="addFaq.php">
-                    <button>Add FAQ</button>
+                    <button style="margin-right: 85px;">Add FAQ</button>
                 </a>
             </div>
             <div class=" accordion">

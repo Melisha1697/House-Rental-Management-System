@@ -51,6 +51,7 @@ if(isset($_POST['add']) && !empty($_FILES['house']['name'])){
 
     <script src="../assets/js/export.js"></script>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
 </head>
 
 <body>
